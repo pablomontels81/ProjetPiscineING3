@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 13 avr. 2020 à 15:07
+-- Généré le :  lun. 13 avr. 2020 à 17:51
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.4.0
 
@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `comptebancaire` (
   `NomCarte` varchar(255) NOT NULL,
   `TypeCarte` varchar(255) NOT NULL,
   `DateExpiration` date NOT NULL,
+  `Fond` int(255) NOT NULL,
   PRIMARY KEY (`NumBancaire`),
   KEY `ID-Util` (`ID-Util`),
   KEY `NomCarte` (`NomCarte`)
@@ -67,8 +68,8 @@ CREATE TABLE IF NOT EXISTS `comptebancaire` (
 -- Déchargement des données de la table `comptebancaire`
 --
 
-INSERT INTO `comptebancaire` (`ID-Util`, `NumBancaire`, `Cryptogramme`, `NomCarte`, `TypeCarte`, `DateExpiration`) VALUES
-('pablomontels', '1423-8034-7618-1803', 983, 'Montels', 'MasterCard', '2023-02-01');
+INSERT INTO `comptebancaire` (`ID-Util`, `NumBancaire`, `Cryptogramme`, `NomCarte`, `TypeCarte`, `DateExpiration`, `Fond`) VALUES
+('pablomontels', '1423-8034-7618-1803', 983, 'Montels', 'MasterCard', '2023-02-01', 100000);
 
 -- --------------------------------------------------------
 
