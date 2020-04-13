@@ -1,4 +1,7 @@
 <?php
+	///Démarrage de la session
+	session_start();
+
 	///Récupération des Données pour Identification Basique( Pseudo + Password)
 	$login = isset($_POST["identifiant"])? $_POST["identifiant"] : "";
 	$pass = isset($_POST["password"])? $_POST["password"] : "";
@@ -31,7 +34,8 @@
 		$NbreResultatTrouvé = mysqli_num_rows($ResultatRecherche);
 		if ($NbreResultatTrouvé == 1) 
 		{
-			echo "Connection réussite vous allez bientôt être redirigé";
+			$_SESSION['username']= $login;
+			echo $_SESSION['username']." Bonjour et Bienvenue";
 			/*$messageUtilisateur = "<h1>Connection réussite vous allez bientôt être redirigé </h1>";*/
 		}
 		else
