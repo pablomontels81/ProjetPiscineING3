@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 13 avr. 2020 à 13:40
+-- Généré le :  lun. 13 avr. 2020 à 15:07
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.4.0
 
@@ -25,14 +25,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `categorie`
+--
+
+DROP TABLE IF EXISTS `categorie`;
+CREATE TABLE IF NOT EXISTS `categorie` (
+  `ID-Categorie` int(10) NOT NULL,
+  `Nom-Categorie` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID-Categorie`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `categorie`
+--
+
+INSERT INTO `categorie` (`ID-Categorie`, `Nom-Categorie`) VALUES
+(1, 'Ferraille ou Trésor'),
+(2, 'Bon pour le Musée'),
+(3, 'Accessoire VIP');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `comptebancaire`
 --
 
 DROP TABLE IF EXISTS `comptebancaire`;
 CREATE TABLE IF NOT EXISTS `comptebancaire` (
   `ID-Util` varchar(255) NOT NULL,
-  `NumBancaire` int(17) NOT NULL,
-  `Cryptogramme` int(4) NOT NULL,
+  `NumBancaire` varchar(255) NOT NULL,
+  `Cryptogramme` int(25) NOT NULL,
   `NomCarte` varchar(255) NOT NULL,
   `TypeCarte` varchar(255) NOT NULL,
   `DateExpiration` date NOT NULL,
@@ -40,6 +62,13 @@ CREATE TABLE IF NOT EXISTS `comptebancaire` (
   KEY `ID-Util` (`ID-Util`),
   KEY `NomCarte` (`NomCarte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `comptebancaire`
+--
+
+INSERT INTO `comptebancaire` (`ID-Util`, `NumBancaire`, `Cryptogramme`, `NomCarte`, `TypeCarte`, `DateExpiration`) VALUES
+('pablomontels', '1423-8034-7618-1803', 983, 'Montels', 'MasterCard', '2023-02-01');
 
 -- --------------------------------------------------------
 
@@ -81,6 +110,14 @@ CREATE TABLE IF NOT EXISTS `item` (
   KEY `ID-Owner` (`ID-Owner`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `item`
+--
+
+INSERT INTO `item` (`ID-Item`, `ID-Owner`, `DateDébut`, `DateFin`, `Prix`, `Catégorie`, `Nom`, `Enchère`, `MeilleurOffre`, `AchatDirect`) VALUES
+(1, 'robinlabrot', '2020-04-13', '2020-05-09', 10, 1, 'Statut d\'un Homme', 1, 1, 1),
+(2, 'timotheebois', '2020-04-22', '2020-05-16', 1000, 3, 'Bague en Or', 1, 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -100,6 +137,13 @@ CREATE TABLE IF NOT EXISTS `livraison` (
   PRIMARY KEY (`Numéro`,`ID-Livraison`),
   KEY `ID-Utilisateur` (`ID-Utilisateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `livraison`
+--
+
+INSERT INTO `livraison` (`ID-Utilisateur`, `Adresse1`, `Adresse2`, `Ville`, `CodePostal`, `Pays`, `Numéro`, `ID-Livraison`) VALUES
+('pablomontels', '30 Rue Sibuet ', '.', 'Paris', 75012, 'France', 651352236, 1);
 
 -- --------------------------------------------------------
 
@@ -158,6 +202,17 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`Pseudo`, `Nom`, `Prénom`, `Email`, `Password`, `Clause`, `Admin`, `Vendeur`, `Acheteur`) VALUES
+('clementjanot', 'Janot', 'Clément', 'clement.janot@edu.ece.fr', 'Acheteur123', 1, 0, 0, 1),
+('jeanneroques', 'Roques', 'Jeanne', 'jeanne.roques@edu.ece.fr', 'Admin456', 1, 1, 1, 1),
+('pablomontels', 'Montels', 'Pablo', 'pablo.montels@edu.ece.fr', 'Admin123', 1, 1, 1, 1),
+('robinlabrot', 'Labrot', 'Robin', 'robin.labrot@edu.ece.fr', 'Vendeur123', 1, 0, 1, 1),
+('timotheebois', 'Bois', 'Timothée', 'timothe.bois@edu.ece.fr', 'Vendeur456', 1, 0, 1, 0);
+
+--
 -- Contraintes pour les tables déchargées
 --
 
@@ -178,7 +233,8 @@ ALTER TABLE `enchere`
 -- Contraintes pour la table `item`
 --
 ALTER TABLE `item`
-  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`ID-Owner`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`ID-Owner`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `item_ibfk_2` FOREIGN KEY (`Catégorie`) REFERENCES `categorie` (`ID-Categorie`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `livraison`
