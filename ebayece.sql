@@ -1,0 +1,206 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.2
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  lun. 13 avr. 2020 à 13:40
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.4.0
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données :  `ebayece`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `comptebancaire`
+--
+
+DROP TABLE IF EXISTS `comptebancaire`;
+CREATE TABLE IF NOT EXISTS `comptebancaire` (
+  `ID-Util` varchar(255) NOT NULL,
+  `NumBancaire` int(17) NOT NULL,
+  `Cryptogramme` int(4) NOT NULL,
+  `NomCarte` varchar(255) NOT NULL,
+  `TypeCarte` varchar(255) NOT NULL,
+  `DateExpiration` date NOT NULL,
+  PRIMARY KEY (`NumBancaire`),
+  KEY `ID-Util` (`ID-Util`),
+  KEY `NomCarte` (`NomCarte`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `enchere`
+--
+
+DROP TABLE IF EXISTS `enchere`;
+CREATE TABLE IF NOT EXISTS `enchere` (
+  `ID-Enchère` int(100) NOT NULL,
+  `ID-Item-E` int(100) NOT NULL,
+  `ID-Acheteur-E` varchar(255) NOT NULL,
+  `PrixMax` int(100) NOT NULL,
+  PRIMARY KEY (`ID-Enchère`),
+  KEY `ID-Item-E` (`ID-Item-E`),
+  KEY `ID-Acheteur-E` (`ID-Acheteur-E`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `item`
+--
+
+DROP TABLE IF EXISTS `item`;
+CREATE TABLE IF NOT EXISTS `item` (
+  `ID-Item` int(100) NOT NULL,
+  `ID-Owner` varchar(255) NOT NULL,
+  `DateDébut` date NOT NULL,
+  `DateFin` date NOT NULL,
+  `Prix` int(255) NOT NULL,
+  `Catégorie` int(10) NOT NULL,
+  `Nom` varchar(255) NOT NULL,
+  `Enchère` tinyint(1) NOT NULL,
+  `MeilleurOffre` tinyint(1) NOT NULL,
+  `AchatDirect` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID-Item`),
+  UNIQUE KEY `Catégorie` (`Catégorie`),
+  KEY `ID-Owner` (`ID-Owner`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `livraison`
+--
+
+DROP TABLE IF EXISTS `livraison`;
+CREATE TABLE IF NOT EXISTS `livraison` (
+  `ID-Utilisateur` varchar(255) NOT NULL,
+  `Adresse1` varchar(255) NOT NULL,
+  `Adresse2` varchar(255) NOT NULL,
+  `Ville` varchar(255) NOT NULL,
+  `CodePostal` int(5) NOT NULL,
+  `Pays` varchar(255) NOT NULL,
+  `Numéro` int(10) NOT NULL,
+  `ID-Livraison` int(11) NOT NULL,
+  PRIMARY KEY (`Numéro`,`ID-Livraison`),
+  KEY `ID-Utilisateur` (`ID-Utilisateur`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `meilleuroffre`
+--
+
+DROP TABLE IF EXISTS `meilleuroffre`;
+CREATE TABLE IF NOT EXISTS `meilleuroffre` (
+  `ID-MeilleurVente` int(100) NOT NULL,
+  `ID-Item-M` int(100) NOT NULL,
+  `ID-Acheteur-M` varchar(255) NOT NULL,
+  `Acceptation` tinyint(1) NOT NULL,
+  `Compteur` int(100) NOT NULL,
+  `Sur-Enchere` int(255) NOT NULL,
+  PRIMARY KEY (`ID-MeilleurVente`),
+  KEY `ID-Item-M` (`ID-Item-M`),
+  KEY `ID-Acheteur-M` (`ID-Acheteur-M`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `panier`
+--
+
+DROP TABLE IF EXISTS `panier`;
+CREATE TABLE IF NOT EXISTS `panier` (
+  `ID-Acheteur` varchar(255) NOT NULL,
+  `ID-Item` int(100) NOT NULL,
+  `ID-Vente` int(255) NOT NULL,
+  `Prix` int(255) NOT NULL,
+  PRIMARY KEY (`ID-Vente`),
+  KEY `ID-Item` (`ID-Item`),
+  KEY `ID-Acheteur` (`ID-Acheteur`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `Pseudo` varchar(255) NOT NULL,
+  `Nom` varchar(255) NOT NULL,
+  `Prénom` varchar(255) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Clause` tinyint(1) NOT NULL,
+  `Admin` tinyint(1) NOT NULL,
+  `Vendeur` tinyint(1) NOT NULL,
+  `Acheteur` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Pseudo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `comptebancaire`
+--
+ALTER TABLE `comptebancaire`
+  ADD CONSTRAINT `comptebancaire_ibfk_1` FOREIGN KEY (`ID-Util`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `enchere`
+--
+ALTER TABLE `enchere`
+  ADD CONSTRAINT `enchere_ibfk_1` FOREIGN KEY (`ID-Acheteur-E`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enchere_ibfk_2` FOREIGN KEY (`ID-Item-E`) REFERENCES `item` (`ID-Item`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `item`
+--
+ALTER TABLE `item`
+  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`ID-Owner`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `livraison`
+--
+ALTER TABLE `livraison`
+  ADD CONSTRAINT `livraison_ibfk_1` FOREIGN KEY (`ID-Utilisateur`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `meilleuroffre`
+--
+ALTER TABLE `meilleuroffre`
+  ADD CONSTRAINT `meilleuroffre_ibfk_1` FOREIGN KEY (`ID-Item-M`) REFERENCES `item` (`ID-Item`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `meilleuroffre_ibfk_2` FOREIGN KEY (`ID-Acheteur-M`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `panier`
+--
+ALTER TABLE `panier`
+  ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`ID-Acheteur`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`ID-Item`) REFERENCES `item` (`ID-Item`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
