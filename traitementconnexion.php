@@ -34,14 +34,21 @@
 		$NbreResultatTrouvé = mysqli_num_rows($ResultatRecherche);
 		if ($NbreResultatTrouvé == 1) 
 		{
+			//Enregistrement du username
 			$_SESSION['username']= $login;
-			echo $_SESSION['username']." Bonjour et Bienvenue";
-			/*$messageUtilisateur = "<h1>Connection réussite vous allez bientôt être redirigé </h1>";*/
+			//Redirection vers HomePage
+			echo '
+			<script language="JAVASCRIPT">
+  				window.location.href = "HomePage.php"
+			</script>';
 		}
 		else
 		{
-			echo "Connection échoué vous allez bientôt être redirigé vers la page de connection";
-			/*$messageUtilisateur = "<h1>Connection échoué vous allez bientôt être redirigé vers la page de connection</h1>";*/
+			//Redirection vers Page Connexion
+			echo '
+			<script language="JAVASCRIPT">
+  				window.location.href = "connecter.html"
+			</script>' ;
 		}
 
 	}

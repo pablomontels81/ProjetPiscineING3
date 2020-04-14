@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,9 +46,9 @@
 
   <nav class="navbar navbar-expand-md">
       <a class="navbar-brand" href="#">
-        <img src="logo.png"
-           height="70px"
-           width="100px">
+        <img src="Logo.png"
+        height="25px"
+        width="50px">
       </a>
     </nav>
 
@@ -76,9 +79,7 @@
     </div>
   </div>
 </nav>
-
-
-<h1 class="text-center">Bienvenue sur EceEbay</h1>
+<h1 class="text-center">Bienvenue sur EceEbay <?php echo $_SESSION['username']; ?></h1>
   
     <p class="text-center">Pionnier des ventes aux enchères en ligne</p>
     <br><br>  
