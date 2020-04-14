@@ -10,7 +10,7 @@
   <style>
     /* Remove the navbar's default rounded borders and increase the bottom margin */ 
     .navbar {
-      margin-bottom: 50px;
+      margin-bottom: -20px;
       border-radius: 0;
     }
     
@@ -24,6 +24,16 @@
       background-color: #f2f2f2;
       padding: 25px;
     }
+
+    #entete {
+      color: white;
+    }
+    #login {
+   margin: 0;
+   padding: 0;
+   background-image: url("images/univers.jpg");
+    height: 100vh;
+}
   </style>
 </head>
 <body>
@@ -43,6 +53,7 @@
            height="70px"
            width="100px">
       </a>
+    </nav>
 
     </div>
 
@@ -72,16 +83,23 @@
   </div>
 </nav>
 
+
+
+  <div id="login">
+    <div id="entete">
 <h3 class="text-center">Bienvenue sur EceEbay</h6>
   
     <p class="text-center">Pionnier des ventes aux enchères en ligne</p>
-    <br><br>  
+    <br><br>     <br><br>    <br><br>    <br><br> 
+     <h2 class="text-center">Veuillez sélectionner un Objet disponible en Vente <br>par Achat Direct afin de pouvoir placer un Achat<br> Direct !</h2>
   </div>
+
+<!-- 
+    <h3 class="text-center">Veuillez sélectionner un Objet disponible en Vente <br>par Achat Direct afin de pouvoir placer un Achat<br> Direct !</h6></h3>
+    </h3> <br><br> <br><br> <br><br>  -->
+ 
+
 </div>
-
-<h3 class="text-center">Veuillez sélectionner un Objet disponible en Vente <br>par Achat Direct afin de pouvoir placer un Achat<br> Direct !</h6>
- <br><br> <br><br> <br><br> 
-
 <small>
 <footer class="container-fluid text-center">
   <p>Pour s'abonner à notre newsletter et être toujours à l'affut des bons plans c'est ici !</p>  
@@ -113,6 +131,7 @@
           </div>
         </div>
       </div>
+    </p></div></div></div></footer></small></h3></h3></div></div></div></div></nav>
       <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: Pablo MONTELS & Jeanne ROQUES</div>
 </footer>
   </small>

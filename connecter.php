@@ -103,7 +103,8 @@
 
 <!--         <h3 class="text-center text-white pt-5">Se connecter</h3> -->
    		 </div>
-        <div class="container">
+     <span class="align-middle">middle
+             <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
@@ -124,12 +125,18 @@
                             <div id="register-link" class="text-right">
                                 <a href="#" class="text-info">S'inscrire ici</a>
                             </div>
+                          </form>
+                        </div>
                         </form>
                     </div>
+</span>
+
+                  </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 <footer class="container-fluid text-center">
