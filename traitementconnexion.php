@@ -6,7 +6,6 @@
 	$login = isset($_POST["identifiant"])? $_POST["identifiant"] : "";
 	$pass = isset($_POST["password"])? $_POST["password"] : "";
 	$erreur = "";
-	$messageUtilisateur = "";
 	$RequeteCo ="";
 	///Test Si champs de connection bien remplis
 	if ($login =="")
@@ -52,5 +51,7 @@
 		}
 
 	}
+	///Fermeture de la connexion
+	mysqli_close($db_handle);
 
 ?>
