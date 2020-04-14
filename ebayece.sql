@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 13 avr. 2020 à 17:51
+-- Généré le :  mar. 14 avr. 2020 à 13:20
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.4.0
 
@@ -106,6 +106,9 @@ CREATE TABLE IF NOT EXISTS `item` (
   `Enchère` tinyint(1) NOT NULL,
   `MeilleurOffre` tinyint(1) NOT NULL,
   `AchatDirect` tinyint(1) NOT NULL,
+  `Statut` tinyint(1) NOT NULL,
+  `urlPhoto` varchar(255) NOT NULL,
+  `urlVideo` varchar(255) NOT NULL,
   PRIMARY KEY (`ID-Item`),
   UNIQUE KEY `Catégorie` (`Catégorie`),
   KEY `ID-Owner` (`ID-Owner`)
@@ -115,9 +118,9 @@ CREATE TABLE IF NOT EXISTS `item` (
 -- Déchargement des données de la table `item`
 --
 
-INSERT INTO `item` (`ID-Item`, `ID-Owner`, `DateDébut`, `DateFin`, `Prix`, `Catégorie`, `Nom`, `Enchère`, `MeilleurOffre`, `AchatDirect`) VALUES
-(1, 'robinlabrot', '2020-04-13', '2020-05-09', 10, 1, 'Statut d\'un Homme', 1, 1, 1),
-(2, 'timotheebois', '2020-04-22', '2020-05-16', 1000, 3, 'Bague en Or', 1, 0, 1);
+INSERT INTO `item` (`ID-Item`, `ID-Owner`, `DateDébut`, `DateFin`, `Prix`, `Catégorie`, `Nom`, `Enchère`, `MeilleurOffre`, `AchatDirect`, `Statut`, `urlPhoto`, `urlVideo`) VALUES
+(1, 'robinlabrot', '2020-04-13', '2020-05-09', 10, 1, 'Statut d\'un Homme', 1, 1, 1, 0, 'statuthomme.jpg', ''),
+(2, 'timotheebois', '2020-04-22', '2020-05-16', 1000, 3, 'Bague en Or', 1, 0, 1, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -159,6 +162,7 @@ CREATE TABLE IF NOT EXISTS `meilleuroffre` (
   `ID-Acheteur-M` varchar(255) NOT NULL,
   `Acceptation` tinyint(1) NOT NULL,
   `Compteur` int(100) NOT NULL,
+  `MeilleurOffre` int(255) NOT NULL,
   `Sur-Enchere` int(255) NOT NULL,
   PRIMARY KEY (`ID-MeilleurVente`),
   KEY `ID-Item-M` (`ID-Item-M`),
