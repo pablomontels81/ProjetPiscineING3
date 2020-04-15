@@ -1,3 +1,16 @@
+#entete {
+        color: white;
+    }
+
+#login {
+     margin: 0;
+     padding: 0;
+     background-image: url("images/univers.jpg");
+    height: 0vh;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
 
 body{
     margin: 0;
@@ -42,45 +55,4 @@ body{
     margin-left: 0;
     margin-right: 0;
 }
- .navbar {
-      margin-bottom: -20px;
-      border-radius: 0;
-    }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-    .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-    #entete {
-        color: white;
-    }
-    #login {
-     margin: 0;
-     padding: 0;
-     background-image: url("images/univers.jpg");
-    height: 100vh;
-}
 
-#login .container #login-row #login-column #login-box {
-  margin-top: 120px;
-  max-width: 600px;
-  height: 320px;
-  border: 1px solid #9C9C9C;
-  background-color: #EAEAEA;
-}
-#login .container #login-row #login-column #login-box #login-form {
-  padding: 20px;
-}
-#login .container #login-row #login-column #login-box #login-form #register-link {
-  margin-top: -85px;
-}
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
