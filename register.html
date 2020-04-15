@@ -26,13 +26,13 @@
       padding: 25px;
     }
     #entete {
-    	color: white;
+      color: white;
     }
     #login {
- 	 margin: 0;
- 	 padding: 0;
- 	 background-image: url("images/univers.jpg");
-  	height: 100vh;
+   margin: 0;
+   padding: 0;
+   background-image: url("images/univers.jpg");
+    height: 100vh;
 }
 #login .container #login-row #login-column #login-box {
   margin-top: 10px;
@@ -84,18 +84,18 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-      	  <span class="icon-bar"></span>
-      	  <span class="icon-bar"></span>
-      	  <span class="icon-bar"></span>                        
-     	 </button>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+       </button>
 
 
- 		 <nav class="navbar navbar-expand-md">
-  	    <a class="navbar-brand" href="#">
+     <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand" href="#">
         <img style="height:30px;"src="logo.png">
-     	 </a>
-     	</nav>
+       </a>
+      </nav>
 
     </div>
 
@@ -103,21 +103,18 @@
 </nav>
 
 
-	<div id="login">
-		<div id="entete">
-			<br><br>
-		<h3 class="text-center">Bienvenue sur EceEbay</h3>
-    	<p class="text-center">Pionnier des ventes aux enchères en ligne</p>
-
-      <h3 class="text-center text-white pt-5">Inscription sur EbayByECE</h3> 
-   		 </div>
-         <div class="container">
-            <div id="login-row">
+  <div id="login">
+    <div id="entete">
+      <br><br>
+    
+       </div>
+         <div class="container-fluid">
+            <div class="form-groupe">
                 <div id="login-column" class="col-md-6 col-md-push-3">
                     <div class="col-md-12 form-content" >
                         <form id="login-form" class="form" action="traitementinscription.php" method="post">
                             <div class="form-group">
-                                
+                                <h4 class="text-center">Formulaire d'Inscription</h4>
                                 <label for="username" class="text-info">Nom d'utilisateur:</label><br>
                                 <input type="text" name="identifiant" id="identifiant" class="form-control">
                                 
@@ -131,28 +128,35 @@
                                 <input type="prenom" name="prenom" id="prenom" class="form-control">
                                 
                                 <label for="email" class="text-info">Email: (ex : prenom.nom@edu.ece.fr)</label><br>
-                                <input type="email" name="email" id="email" class="form-control">
-                                <div>
-                                  <label for="clause" class="text-info">Clause Achat :</label><br>
-                                  <input type="radio" name="clause" id="OKAY" value="1">
-                                  <label for="OKAY">OUI</label>
-                                  <input type="radio" name="clause" id="NON" value="0">
-                                  <label for="NON">NON</label>
-                                </div>
-                                <div>
-                                  <label for="vendeur" class="text-info">Allez vous vendre ? :</label><br>
-                                  <input type="radio" name="vendeur" id="OKAY" value="1">
-                                  <label for="OKAY">OUI</label>
-                                  <input type="radio" name="vendeur" id="NON" value="0">
-                                  <label for="NON">NON</label>
-                                </div>
-                                <div>
-                                  <label for="acheteur" class="text-info">Allez vous acheter ? :</label><br>
-                                  <input type="radio" name="acheteur" id="OKAY" value="1">
-                                  <label for="OKAY">OUI</label>
-                                  <input type="radio" name="acheteur" id="NON" value="0">
-                                  <label for="NON">NON</label>
-                                </div>
+                                <input type="email" name="email" id="email" class="form-control">                               <table class="table">
+                                  <td>
+                                    <label for="clause" class="text-info">Clause Achat :</label><br>
+                                    <input type="radio" name="clause" id="OKAY" value="1">
+                                    <label for="OKAY">OUI</label>
+                                    <input type="radio" name="clause" id="NON" value="0">
+                                    <label for="NON">NON</label>
+                                  </td>
+                                  <td>
+                                    <label for="vendeur" class="text-info">Allez vous vendre ? :</label><br>
+                                    <input type="radio" name="vendeur" id="OKAY" value="1">
+                                    <label for="OKAY">OUI</label>
+                                    <input type="radio" name="vendeur" id="NON" value="0">
+                                    <label for="NON">NON</label>
+                                  </td>
+                                  <td>
+                                    <label for="acheteur" class="text-info">Allez vous acheter ? :</label><br>
+                                    <input type="radio" name="acheteur" id="OKAY" value="1">
+                                    <label for="OKAY">OUI</label>
+                                    <input type="radio" name="acheteur" id="NON" value="0">
+                                    <label for="NON">NON</label>
+                                  </td>
+                                </table>
+
+                                <label for="email" class="text-info">Photo de Profil: (ex : nom.jpg/png)</label><br>
+                                <input type="email" name="email" id="email" class="form-control"> 
+
+                                <label for="photocouverture" class="text-info">Photo Couverture: (ex : nom.jpg/png)</label><br>
+                                <input type="text" name="photocouverture" id="photocouverture" class="form-control"> 
                             </div>
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Inscription à EbayByECE">
                         </form>
@@ -194,6 +198,5 @@
       </div>
       <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: Pablo MONTELS & Jeanne ROQUES</div>
     </footer>
-  </small>
   </body>
 </html>
