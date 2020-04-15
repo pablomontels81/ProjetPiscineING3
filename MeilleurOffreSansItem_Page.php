@@ -40,29 +40,36 @@
   <nav class="navbar navbar-expand-md">
       <a class="navbar-brand" href="#">
         <img src="logo.png"
-           height="70px"
-           width="100px">
+           height="25px"
+           width="50px">
       </a>
+    </nav>
 
     </div>
 
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Accueil</a></li>
-            <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie</a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">High-Tech</a><br>
-        <a class="dropdown-item" href="#">Mode</a><br>
-        <a class="dropdown-item" href="#">Maison & Jardin</a><br>
-        <a class="dropdown-item" href="#">Occasion</a><br>
-        <a class="dropdown-item" href="#">Collection & Antiquité</a><br>
-        <div class="dropdown-divider"></div>
-      </div>
-    </li>
-        <li><a href="#">Acheter aux enchères</a></li>
-        <li><a href="#">Vendre</a></li>
-        <li><a href="#">Admin</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Accessoire VIP</a><br>
+              <a class="dropdown-item" href="#">Bon Pour le Musée</a><br>
+              <a class="dropdown-item" href="#">Accessoire VIP</a><br><br>
+              <div class="dropdown-divider"></div>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Achat</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Achat Direct</a><br>
+              <a class="dropdown-item" href="#">Enchère</a><br>
+              <a class="dropdown-item" href="#">Meilleur Offre</a><br><br>
+              <div class="dropdown-divider"></div>
+            </div>
+          </li>
+          <li><a href="vendre.html">Vendre</a></li>
+          <li><a href="#">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
@@ -71,6 +78,7 @@
     </div>
   </div>
 </nav>
+
 
 <h3 class="text-center">Bienvenue sur EceEbay</h6>
   

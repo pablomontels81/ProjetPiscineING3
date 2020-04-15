@@ -68,7 +68,12 @@
     $db_handle = mysqli_connect('localhost', 'root', '' );
     $db_found = mysqli_select_db($db_handle, $database);
     
-
+    if ($erreur != "") {
+        echo '
+            <script language="JAVASCRIPT">
+                window.location.href = "Vendre_Page.html"
+            </script>';
+    }
     ///Test Si Login présent dans Base de Données puis si Bon Password
     if ($db_found)
     {        
@@ -81,11 +86,11 @@
         {
             echo '
             <script language="JAVASCRIPT">
-                window.location.href = "vendre.html"
+                window.location.href = "Vendre_Page.html"
             </script>';
         }
         
-        else
+        if ($NbreResultatTrouvé == 0)
         {
                        
             //Alors nous pouvons ajouter cette objet
@@ -95,6 +100,13 @@
             echo '
             <script language="JAVASCRIPT">
                 window.location.href = "HomePage.php"
+            </script>';
+        }
+        else 
+        {
+            echo '
+            <script language="JAVASCRIPT">
+                window.location.href = "Vendre_Page.html"
             </script>';
         }
         

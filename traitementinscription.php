@@ -96,7 +96,7 @@
 				//Redirection vers Page Inscription car il y a un problème
 				echo '
 				<script language="JAVASCRIPT">
-	  				window.location.href = "register.html"
+	  				window.location.href = "Inscription_Page.html"
 				</script>' ;
 			}
 		

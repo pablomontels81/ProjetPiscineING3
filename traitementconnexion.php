@@ -46,7 +46,7 @@
 			//Redirection vers Page Connexion
 			echo '
 			<script language="JAVASCRIPT">
-  				window.location.href = "connecter.html"
+  				window.location.href = "Connexion_Page.html"
 			</script>' ;
 		}
 		
