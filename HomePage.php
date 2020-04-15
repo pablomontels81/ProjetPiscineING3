@@ -71,7 +71,7 @@
       </div>
     </li>
         <li><a href="#">Acheter aux enchères</a></li>
-        <li><a href="#">Vendre</a></li>
+        <li><a href="vendre.html">Vendre</a></li>
         <li><a href="#">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
