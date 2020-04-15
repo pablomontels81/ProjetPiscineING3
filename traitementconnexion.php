@@ -49,6 +49,7 @@
   				window.location.href = "connecter.html"
 			</script>' ;
 		}
+		
 
 	}
 	///Fermeture de la connexion

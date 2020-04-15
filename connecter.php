@@ -12,7 +12,6 @@
     .navbar {
       margin-bottom: -20px;
       border-radius: 0;
-
     }
     
     /* Remove the jumbotron's default bottom margin */ 
@@ -36,7 +35,6 @@
 }
 #login .container #login-row #login-column #login-box {
   margin-top: 120px;
-  margin-left: auto;
   max-width: 600px;
   height: 320px;
   border: 1px solid #9C9C9C;
@@ -70,6 +68,29 @@
 
     </div>
 
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+       		 <li class="active"><a href="#">Accueil</a></li>
+            <li class="nav-item dropdown">
+     			 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie</a>
+    				 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      					  <a class="dropdown-item" href="#">High-Tech</a><br>
+      					  <a class="dropdown-item" href="#">Mode</a><br>
+     					   <a class="dropdown-item" href="#">Maison & Jardin</a><br>
+ 						  <a class="dropdown-item" href="#">Occasion</a><br>
+       					 <a class="dropdown-item" href="#">Collection & Antiquité</a><br>
+      						 <div class="dropdown-divider"></div>
+      				</div>
+   			</li>
+        	<li><a href="#">Acheter aux enchères</a></li>
+        	<li><a href="#">Vendre</a></li>
+        	<li><a href="#">Admin</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
+        	<li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
+      </ul>
+    </div>
  </div>
 </nav>
 
@@ -82,33 +103,40 @@
 
 <!--         <h3 class="text-center text-white pt-5">Se connecter</h3> -->
    		 </div>
-        <div class="container">
-            <div id="login-row">
-                <div id="login-column" class="col-md-6 col-md-push-3">
-                    <div id="login-box" class="col-md-12" >
-                        <form id="login-form" class="form" action="traitementconnexion.php" method="post">
+     <span class="align-middle">middle
+             <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
                             <h3 class="text-center text-info">Se connecter</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Nom d'utilisateur:</label><br>
-                                <input type="text" name="identifiant" id="identifiant" class="form-control">
+                                <input type="text" name="username" id="username" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="pass">Mot de passe:</label><br>
-                                <input type="password" name="password" id="password" class="form-control">
+                                <label for="password" class="text-info">Mot de passe:</label><br>
+                                <input type="text" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="remember-me" class="text-info"><span>Se souvenir de moi</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Connexion">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Soumettre">
                             </div>
                             <div id="register-link" class="text-right">
-                                <a href="register.html" class="text-info">S'inscrire ici</a>
+                                <a href="#" class="text-info">S'inscrire ici</a>
                             </div>
+                          </form>
+                        </div>
                         </form>
                     </div>
+</span>
+
+                  </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 <footer class="container-fluid text-center">

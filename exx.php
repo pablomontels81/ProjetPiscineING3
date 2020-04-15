@@ -1,8 +1,3 @@
-<?php
-  session_start();
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +15,7 @@
     }
     
     /* Remove the jumbotron's default bottom margin */ 
-    .jumbotron {
+     .jumbotron {
       margin-bottom: 0;
     }
    
@@ -29,10 +24,16 @@
       background-color: #f2f2f2;
       padding: 25px;
     }
- /*   .uni{
-     background-image: url("images/univers.jpg");
-    }*/
-    
+
+    #entete {
+      color: white;
+    }
+    #login {
+   margin: 0;
+   padding: 0;
+   background-image: url("images/univers.jpg");
+    height: 100vh;
+}
   </style>
 </head>
 <body>
@@ -49,8 +50,8 @@
   <nav class="navbar navbar-expand-md">
       <a class="navbar-brand" href="#">
         <img src="logo.png"
-           height="25px"
-           width="50px">
+           height="70px"
+           width="100px">
       </a>
     </nav>
 
@@ -83,102 +84,32 @@
 </nav>
 
 
-<h1 class="text-center">
-  Bienvenue sur EceEbay
-  <?php
-    ///Récupération de la Base de Donnée et de la Table voulu (utilisateur)
-    $database = "ebayece";
-    //Connection à la Base de Données
-    $db_handle = mysqli_connect('localhost', 'root', '' );
-    $db_found = mysqli_select_db($db_handle, $database);
-    $username = $_SESSION['username'];
-    ///Test Si Login présent dans Base de Données puis si Bon Password
-    if ($db_found)
-    {
-      $sql = "SELECT * FROM utilisateur WHERE Pseudo= '$username'";
-      $result = mysqli_query($db_handle, $sql);
-      while ($data = mysqli_fetch_assoc($result)) {
-        echo $data['Prenom']." ".$data['Nom'];
-      }
-    }
 
-  ?>
-</h1>
+  <div id="login">
+    <div id="entete">
+<h3 class="text-center">Bienvenue sur EceEbay</h6>
   
     <p class="text-center">Pionnier des ventes aux enchères en ligne</p>
-    <br><br>  
+    <br><br>     <br><br>    <br><br>    <br><br> 
+     <h2 class="text-center">Veuillez sélectionner un Objet disponible en Vente <br>par Achat Direct afin de pouvoir placer un Achat<br> Direct !</h2>
   </div>
+
+<!-- 
+    <h3 class="text-center">Veuillez sélectionner un Objet disponible en Vente <br>par Achat Direct afin de pouvoir placer un Achat<br> Direct !</h6></h3>
+    </h3> <br><br> <br><br> <br><br>  -->
+ 
+
 </div>
-
-  
-<br><br>
-
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-primary ">
-        <div class="panel-heading">Nos offres pour la Saint-Valentin</div>
-        <div class="panel-body"><img src="images/stvalentin.jpg" class="img-responsive" style="width:300px;height:250px;" alt="Image"></div>
-        <div class="panel-footer">Découvrez nos produits spécialement pour les amoureux</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-primary ">
-        <div class="panel-heading">Nos offres speciales fêtes des mères</div>
-        <div class="panel-body"><img src="images/mere.jpg" class="img-responsive" style="width:300px;height:250px;" alt="Image"></div>
-        <div class="panel-footer">Acheter 2 produits de beauté le 3e vous est offert !</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-primary ">
-        <div class="panel-heading">Bénificiez d'une estimation de vos objets de valeurs </div>
-        <div class="panel-body"><img src="images/vases.jpg" class="img-responsive" style="width:300px;height:250px;" alt="Image"></div>
-        <div class="panel-footer">Nos spécialistes sont là pour vous aider</div>
-      </div>
-    </div>
-  </div>
-</div><br>
-
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Promos du jour</div>
-        <div class="panel-body"><img src="images/telephone.jpg" class="img-responsive" style="width:300px;height:250px;" alt="Image"></div>
-        <div class="panel-footer">De la technologie à petit prix aujourd'hui</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-primary">
-        <div class="panel-heading">Les bons plans modes de la semaine à ne pas louper</div>
-        <div class="panel-body"><img src="images/sap.jpg" class="img-responsive" style="width:300px;height:250px;" alt="Image"></div>
-        <div class="panel-footer">Pour des affaires tendances c'est par ici !</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-primary">
-        <div class="panel-heading">Bientôt le Black Friday ...</div>
-        <div class="panel-body"><img src="images/blff.jpg" class="img-responsive" style="width:300px;height:250px;" alt="Image"></div>
-        <div class="panel-footer">Regardez nos offres</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
+<small>
 <footer class="container-fluid text-center">
   <p>Pour s'abonner à notre newsletter et être toujours à l'affut des bons plans c'est ici !</p>  
   <form class="form-inline">Inscrivez-vous:
     <input type="email" class="form-control" size="50" placeholder="Adresse mail">
     <button type="button" class="btn btn-danger">S'inscrire</button>
   </form>
-</footer>
-<small>
-<footer class="page-footer">
-      <div class="container-fluid">
+        <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-12"><br>
             <h6 class="text-center">Information additionnelle</h6>
             <p class="text-center">
             Nous pronons au sein de ce site, un esprit de bonne camarederie et seront vigilant à toutes formes de violences au sein de notre site. 
@@ -188,9 +119,7 @@
             </p>
           </div>
           <div class="col-sm-12">
-            <br><br>
- 
-
+            
             <p class="text-center">
             <h6 class="text-center">Contact</h6>
             <p class="text-center">
@@ -202,9 +131,10 @@
           </div>
         </div>
       </div>
+    </p></div></div></div></footer></small></h3></h3></div></div></div></div></nav>
       <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: Pablo MONTELS & Jeanne ROQUES</div>
-    </footer>
+</footer>
   </small>
+
 </body>
 </html>
-
