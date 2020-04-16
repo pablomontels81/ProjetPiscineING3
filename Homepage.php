@@ -17,6 +17,7 @@
     .navbar {
       margin-bottom: -20px;
       border-radius: 0;
+      border-bottom-color: black;
     }
     
     /* Remove the jumbotron's default bottom margin */ 
@@ -36,28 +37,21 @@
   </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-
-
-  <nav class="navbar navbar-expand-md">
+<nav class="navbar navbar-expand-md">
       <a class="navbar-brand" href="#">
-        <img src="logo.png"
+        <img src="logotest.png"
            height="25px"
-           width="50px">
+           width="60px">
       </a>
-    </nav>
-
-    </div>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="nav navbar-nav">
+      <button class="navbar-toggler navbar-dark" 
+          type="button"
+          data-toggle="collapse"
+          data-target="#main-navigation">
+        <span class="navbar-toggler-icon"></span>   
+      </button> 
+      <div class="collapse navbar-collapse"
+         id="main-navigation">
+        <ul class="nav navbar-nav">
         <li class="active"><a href="#">Accueil</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie</a>
@@ -78,16 +72,15 @@
             </div>
           </li>
           <li><a href="Vendre_Page.html">Vendre</a></li>
-          <li><a href="#">Admin</a></li>
+          <li><a href="Admin_Page.php">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
         <li><a href="Deconnexion_Page.php"><span class="glyphicon glyphicon-off"> Déconnexion</span></a></li>
       </ul>
-    </div>
-  </div>
-</nav>
+      </div>
+  </nav>
 
 
 <h1 class="text-center">

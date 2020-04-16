@@ -16,8 +16,9 @@
     $nom = $_SESSION['nom'];
 
 
+    echo $username;
+    /*
     $erreur = "";
-    $RequeteCo ="";
     ///Test Si champs de connection bien remplis
     if ($prix =="") 
     {
@@ -64,7 +65,7 @@
     $db_handle = mysqli_connect('localhost', 'root', '' );
     $db_found = mysqli_select_db($db_handle, $database);
     
-    if ($erreur != "") {
+    if ($erreur == "") {
         echo '
             <script language="JAVASCRIPT">
                 window.location.href = "Vendre_Page_Admin.html"
@@ -79,14 +80,14 @@
         $insertion = mysqli_query($db_handle, $RequeteIn);
         echo '
         <script language="JAVASCRIPT">
-            window.location.href = "HomePage.php"
+            window.location.href = "Admin_Page.php"
         </script>';
-              
+                     
     }
     //Remise à zéro des paramètres session pour l'ajout
     $_SESSION['vendeur'] = "";
     $_SESSION['nom'] = "";    
     ///Fermeture de la connexion
-    mysqli_close($db_handle);
+    mysqli_close($db_handle);*/
 
 ?>

@@ -90,6 +90,13 @@
 	  				window.location.href = "HomePage.php"
 				</script>';
 			}
+			else
+			{
+				echo '
+				<script language="JAVASCRIPT">
+	  				window.location.href = "Inscription_Page.php"
+				</script>';
+			}
 		}
 		else
 			{
