@@ -56,7 +56,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Accessoire VIP</a><br>
+              <a class="dropdown-item" href="#">Ferraille ou trésor</a><br>
               <a class="dropdown-item" href="#">Bon Pour le Musée</a><br>
               <a class="dropdown-item" href="#">Accessoire VIP</a><br><br>
               <div class="dropdown-divider"></div>
