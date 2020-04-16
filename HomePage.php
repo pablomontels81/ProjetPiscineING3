@@ -56,7 +56,7 @@
 
     </div>
 
-    <div class="collapse navbar-collapse" id="myNavbar">
+    <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Accueil</a></li>
           <li class="nav-item dropdown">
@@ -74,15 +74,16 @@
               <a class="dropdown-item" href="#">Achat Direct</a><br>
               <a class="dropdown-item" href="#">Enchère</a><br>
               <a class="dropdown-item" href="#">Meilleur Offre</a><br><br>
-              <div class="dropdown-divider"></div>
+              
             </div>
           </li>
-          <li><a href="vendre.html">Vendre</a></li>
+          <li><a href="Vendre_Page.html">Vendre</a></li>
           <li><a href="#">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-off"> Déconnexion</span></a></li>
       </ul>
     </div>
   </div>
