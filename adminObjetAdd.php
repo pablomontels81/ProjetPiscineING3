@@ -67,7 +67,7 @@
     if ($erreur != "") {
         echo '
             <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page.html"
+                window.location.href = "Vendre_Page_Admin.html"
             </script>';
     }
     ///Test Si Login présent dans Base de Données puis si Bon Password
