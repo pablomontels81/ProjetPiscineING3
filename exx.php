@@ -37,7 +37,9 @@
   </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+
+<?php include 'navbar.php';?>
+<!-- <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -83,11 +85,11 @@
   </div>
 </nav>
 
-
+ -->
 
   <div id="login">
     <div id="entete">
-<h3 class="text-center">Bienvenue sur EceEbay</h6>
+<h3 class="text-center">Bienvenue sur EceEbay</h3>
   
     <p class="text-center">Pionnier des ventes aux enchères en ligne</p>
     <br><br>     <br><br>    <br><br>    <br><br> 
