@@ -70,7 +70,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-off"> Déconnexion</span></a></li>
+        <li><a href="Deconnexion_Page.php"><span class="glyphicon glyphicon-off"> Déconnexion</span></a></li>
       </ul>
     </div>
   </div>
