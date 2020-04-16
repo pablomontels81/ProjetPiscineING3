@@ -3,7 +3,6 @@
     session_start();
 
     ///Récupération des Données pour Ajout Objet
-    $nom = isset($_POST["nom"])? $_POST["nom"] : "";
     $prix = isset($_POST["prix"])? $_POST["prix"] : "";
     $categorie = isset($_POST["categorie"])? $_POST["categorie"] : "";
     $DateDebut = isset($_POST["DateDebut"])? $_POST["DateDebut"] : "";
@@ -13,16 +12,13 @@
     $achatdirect = isset($_POST["achatdirect"])? $_POST["achatdirect"] : "";
     $enchere = isset($_POST["enchere"])? $_POST["enchere"] : "";
     $meilleuroffre = isset($_POST["meilleuroffre"])? $_POST["meilleuroffre"] : "";
-    $username = $_SESSION['username'];
+    $username = $_SESSION['vendeur'];
+    $nom = $_SESSION['nom'];
 
 
     $erreur = "";
     $RequeteCo ="";
     ///Test Si champs de connection bien remplis
-    if ($nom =="")
-    {
-        $erreur .= "Veuillez Saisir Le Nom de l'Objet. <br>";
-    }
     if ($prix =="") 
     {
         $erreur .= "Veuillez Saisir Le Prix de l'Objet. <br>";
@@ -71,52 +67,26 @@
     if ($erreur != "") {
         echo '
             <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page.html"
+                window.location.href = "Vendre_Page_Admin.html"
             </script>';
     }
     ///Test Si Login présent dans Base de Données puis si Bon Password
     if ($db_found)
     {        
-        //Récupération si existance de la ligne item allant avec ce Propriétaire & ce nom donné
-        $RequeteAdd = "SELECT * FROM item WHERE IDOwner = '$username' AND Nom = '$nom'";
-        $ResultatRecherche = mysqli_query($db_handle, $RequeteAdd);
-        //Si NbreResultatTrouvé = 1; alors cette objet existe déjà
-        $NbreResultatTrouvé = mysqli_num_rows($ResultatRecherche);
-        if ($NbreResultatTrouvé == 1) 
-        {
-            echo '
-            <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page.html"
-            </script>';
-        }
-        
-        if ($NbreResultatTrouvé == 0)
-        {
-                       
-            //Alors nous pouvons ajouter cette objet
-            $RequeteIn = "INSERT INTO item (IDOwner,DateDebut,DateFin,Categorie,Nom,Enchere,Achatdirect,Meilleuroffre,statut,Prix,urlPhoto,urlVideo)
-                          VALUES ('$username','$DateDebut','$DateFin','$categorie','$nom','$enchere','$achatdirect','$meilleuroffre',0,'$prix','photo','$video')";
-            $insertion = mysqli_query($db_handle, $RequeteIn);
-            echo '
-            <script language="JAVASCRIPT">
-                window.location.href = "HomePage.php"
-            </script>';
-        }
-        else 
-        {
-            echo '
-            <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page.html"
-            </script>';
-        }
-        
+        //Alors nous pouvons ajouter cette objet
+        $RequeteIn = "INSERT INTO item (IDOwner,DateDebut,DateFin,Categorie,Nom,Enchere,Achatdirect,Meilleuroffre,statut,Prix,urlPhoto,urlVideo)
+                      VALUES ('$username','$DateDebut','$DateFin','$categorie','$nom','$enchere','$achatdirect','$meilleuroffre',0,'$prix','photo','$video')";
+        $insertion = mysqli_query($db_handle, $RequeteIn);
+        echo '
+        <script language="JAVASCRIPT">
+            window.location.href = "HomePage.php"
+        </script>';
+              
     }
-    
+    //Remise à zéro des paramètres session pour l'ajout
+    $_SESSION['vendeur'] = "";
+    $_SESSION['nom'] = "";    
     ///Fermeture de la connexion
     mysqli_close($db_handle);
 
 ?>
-
-
-
-
