@@ -2,7 +2,10 @@
     ///Démarrage de la session
     session_start();
 
+    $username = $_SESSION['newvendeur'];
+    $nom = $_SESSION['newObjet'];
     ///Récupération des Données pour Ajout Objet
+     
     $prix = isset($_POST["prix"])? $_POST["prix"] : "";
     $categorie = isset($_POST["categorie"])? $_POST["categorie"] : "";
     $DateDebut = isset($_POST["DateDebut"])? $_POST["DateDebut"] : "";
@@ -12,50 +15,54 @@
     $achatdirect = isset($_POST["achatdirect"])? $_POST["achatdirect"] : "";
     $enchere = isset($_POST["enchere"])? $_POST["enchere"] : "";
     $meilleuroffre = isset($_POST["meilleuroffre"])? $_POST["meilleuroffre"] : "";
-    $username = $_SESSION['vendeur'];
-    $nom = $_SESSION['nom'];
 
+    $erreurs ="";
 
-    echo $username;
-    /*
-    $erreur = "";
     ///Test Si champs de connection bien remplis
+    if ($username =="")
+    {
+        $erreurs .= "Veuillez Saisir Le Propriétaire de l'Objet. <br>";
+    }
+    if ($nom =="")
+    {
+        $erreurs .= "Veuillez Saisir Le Nom de l'Objet. <br>";
+    }
     if ($prix =="") 
     {
-        $erreur .= "Veuillez Saisir Le Prix de l'Objet. <br>";
+        $erreurs .= "Veuillez Saisir Le Prix de l'Objet. <br>";
     }
     if ($categorie =="")
     {
-        $erreur .= "Veuillez Saisir La Catégorie de l'Objet. <br>";
+        $erreurs .= "Veuillez Saisir La Catégorie de l'Objet. <br>";
     }
     if ($DateDebut =="") 
     {
-        $erreur .= "Veuillez Saisir La Date de Début de vente de  l'Objet. <br>";
+        $erreurs .= "Veuillez Saisir La Date de Début de vente de  l'Objet. <br>";
     }
     if ($DateDebut =="") 
     {
-        $erreur .= "Veuillez Saisir La Date de Fin de vente de  l'Objet. <br>";
+       $erreurs .= "Veuillez Saisir La Date de Fin de vente de  l'Objet. <br>";
     }
     if ($achatdirect =="")
     {
-        $erreur .= "Veuillez Saisir si OUI ou NON vous voulez activer ce mode de vente. <br>";
+        $erreurs .= "Veuillez Saisir si OUI ou NON vous voulez activer ce mode de vente. <br>";
     }
     if ($enchere =="")
     {
-        $erreur .= "Veuillez Saisir si OUI ou NON vous voulez activer ce mode de vente. <br>";
+        $erreurs .= "Veuillez Saisir si OUI ou NON vous voulez activer ce mode de vente. <br>";
     }
     if ($meilleuroffre =="")
     {
-        $erreur .= "Veuillez Saisir si OUI ou NON vous voulez activer ce mode de vente. <br>";
+        $erreurs .= "Veuillez Saisir si OUI ou NON vous voulez activer ce mode de vente. <br>";
     }
     if ($DateDebut > $DateFin) {
-        $erreur .= "Veuillez saisir des dates correctes. <br>";
+        $erreurs .= "Veuillez saisir des dates correctes. <br>";
     }
     if (($achatdirect == 0)&&($enchere ==0)&&($meilleuroffre ==0)) {
-        $erreur .= "Veuillez sélectionner au moins un type de vente. <br>";
+        $erreurs .= "Veuillez sélectionner au moins un type de vente. <br>";
     }
     if ($prix <= 0) {
-        $erreur .= "Veuillez saisir un prix strictment positif";
+        $erreurs .= "Veuillez saisir un prix strictment positif";
     }
 
     
@@ -65,15 +72,15 @@
     $db_handle = mysqli_connect('localhost', 'root', '' );
     $db_found = mysqli_select_db($db_handle, $database);
     
-    if ($erreur == "") {
+    if ($erreurs != "") {
         echo '
             <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page_Admin.html"
+                window.location.href = "Vendre_Page_Admin.php"
             </script>';
     }
     ///Test Si Login présent dans Base de Données puis si Bon Password
     if ($db_found)
-    {        
+    {  
         //Alors nous pouvons ajouter cette objet
         $RequeteIn = "INSERT INTO item (IDOwner,DateDebut,DateFin,Categorie,Nom,Enchere,Achatdirect,Meilleuroffre,statut,Prix,urlPhoto,urlVideo)
                       VALUES ('$username','$DateDebut','$DateFin','$categorie','$nom','$enchere','$achatdirect','$meilleuroffre',0,'$prix','photo','$video')";
@@ -84,10 +91,8 @@
         </script>';
                      
     }
-    //Remise à zéro des paramètres session pour l'ajout
-    $_SESSION['vendeur'] = "";
-    $_SESSION['nom'] = "";    
+      
     ///Fermeture de la connexion
-    mysqli_close($db_handle);*/
+    mysqli_close($db_handle);
 
 ?>

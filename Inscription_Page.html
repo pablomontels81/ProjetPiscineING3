@@ -115,20 +115,22 @@
                         <form id="login-form" class="form" action="traitementinscription.php" method="post">
                             <div class="form-group">
                                 <h4 class="text-center">Formulaire d'Inscription</h4>
-                                <label for="username" class="text-info">Nom d'utilisateur:</label><br>
-                                <input type="text" name="identifiant" id="identifiant" class="form-control">
+                                <label class="text-info">Nom d'utilisateur:</label><br>
+                                <input type="text" name="identifiant" class="form-control">
                                 
-                                <label for="password" class="text-info">Mot de passe:</label><br>
-                                <input type="password" name="password" id="password" class="form-control">
+                                <label class="text-info">Mot de passe:</label><br>
+                                <input type="text" name="pass" class="form-control">
                                 
-                                <label for="nom" class="text-info">Nom:</label><br>
-                                <input type="text" name="nom" id="nom" class="form-control">
+                                <label class="text-info">Nom:</label><br>
+                                <input type="text" name="nom" class="form-control">
                                 
-                                <label for="prenom" class="text-info">Prénom:</label><br>
-                                <input type="prenom" name="prenom" id="prenom" class="form-control">
-                                
-                                <label for="email" class="text-info">Email: (ex : prenom.nom@edu.ece.fr)</label><br>
-                                <input type="email" name="email" id="email" class="form-control">                               <table class="table">
+                                <label class="text-info">Prénom:</label><br>
+                                <input type="text" name="prenom" class="form-control">
+
+                                <label class="text-info">Email:</label><br>
+                                <input type="text" name="toto" class="form-control">
+
+                                <table class="table">
                                   <td>
                                     <label for="clause" class="text-info">Clause Achat :</label><br>
                                     <input type="radio" name="clause" id="OKAY" value="1">
@@ -155,7 +157,7 @@
                                 <label for="email" class="text-info">Photo de Profil: (ex : nom.jpg/png)</label><br>
                                 <input type="email" name="email" id="email" class="form-control"> 
 
-                                <label for="photocouverture" class="text-info">Photo Couverture: (ex : nom.jpg/png)</label><br>
+                                <label class="text-info">Photo Couverture: (ex : nom.jpg/png)</label><br>
                                 <input type="text" name="photocouverture" id="photocouverture" class="form-control"> 
                             </div>
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Inscription à EbayByECE">

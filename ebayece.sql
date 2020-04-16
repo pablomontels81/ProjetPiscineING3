@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 14 avr. 2020 à 13:20
+-- Généré le :  jeu. 16 avr. 2020 à 17:26
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.4.0
 
@@ -21,28 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `ebayece`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `categorie`
---
-
-DROP TABLE IF EXISTS `categorie`;
-CREATE TABLE IF NOT EXISTS `categorie` (
-  `ID-Categorie` int(10) NOT NULL,
-  `Nom-Categorie` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID-Categorie`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `categorie`
---
-
-INSERT INTO `categorie` (`ID-Categorie`, `Nom-Categorie`) VALUES
-(1, 'Ferraille ou Trésor'),
-(2, 'Bon pour le Musée'),
-(3, 'Accessoire VIP');
 
 -- --------------------------------------------------------
 
@@ -79,13 +57,13 @@ INSERT INTO `comptebancaire` (`ID-Util`, `NumBancaire`, `Cryptogramme`, `NomCart
 
 DROP TABLE IF EXISTS `enchere`;
 CREATE TABLE IF NOT EXISTS `enchere` (
-  `ID-Enchère` int(100) NOT NULL,
-  `ID-Item-E` int(100) NOT NULL,
-  `ID-Acheteur-E` varchar(255) NOT NULL,
-  `PrixMax` int(100) NOT NULL,
-  PRIMARY KEY (`ID-Enchère`),
-  KEY `ID-Item-E` (`ID-Item-E`),
-  KEY `ID-Acheteur-E` (`ID-Acheteur-E`)
+  `IDEnchere` int(255) NOT NULL AUTO_INCREMENT,
+  `IDItemE` int(100) NOT NULL,
+  `IDAcheteurE` varchar(255) NOT NULL,
+  `PrixMax` int(255) NOT NULL,
+  PRIMARY KEY (`IDEnchere`),
+  KEY `IDItemE` (`IDItemE`),
+  KEY `IDAcheteurE` (`IDAcheteurE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -96,31 +74,31 @@ CREATE TABLE IF NOT EXISTS `enchere` (
 
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE IF NOT EXISTS `item` (
-  `ID-Item` int(100) NOT NULL,
-  `ID-Owner` varchar(255) NOT NULL,
-  `DateDébut` date NOT NULL,
+  `IDItem` int(255) NOT NULL AUTO_INCREMENT,
+  `IDOwner` varchar(255) NOT NULL,
+  `DateDebut` date NOT NULL,
   `DateFin` date NOT NULL,
-  `Prix` int(255) NOT NULL,
-  `Catégorie` int(10) NOT NULL,
+  `Categorie` varchar(255) NOT NULL,
   `Nom` varchar(255) NOT NULL,
-  `Enchère` tinyint(1) NOT NULL,
-  `MeilleurOffre` tinyint(1) NOT NULL,
-  `AchatDirect` tinyint(1) NOT NULL,
-  `Statut` tinyint(1) NOT NULL,
+  `Enchere` tinyint(1) NOT NULL,
+  `Achatdirect` tinyint(1) NOT NULL,
+  `Meilleuroffre` tinyint(1) NOT NULL,
+  `statut` tinyint(1) NOT NULL,
+  `Prix` int(255) NOT NULL,
   `urlPhoto` varchar(255) NOT NULL,
   `urlVideo` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID-Item`),
-  UNIQUE KEY `Catégorie` (`Catégorie`),
-  KEY `ID-Owner` (`ID-Owner`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`IDItem`),
+  KEY `IDOwner` (`IDOwner`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `item`
 --
 
-INSERT INTO `item` (`ID-Item`, `ID-Owner`, `DateDébut`, `DateFin`, `Prix`, `Catégorie`, `Nom`, `Enchère`, `MeilleurOffre`, `AchatDirect`, `Statut`, `urlPhoto`, `urlVideo`) VALUES
-(1, 'robinlabrot', '2020-04-13', '2020-05-09', 10, 1, 'Statut d\'un Homme', 1, 1, 1, 0, 'statuthomme.jpg', ''),
-(2, 'timotheebois', '2020-04-22', '2020-05-16', 1000, 3, 'Bague en Or', 1, 0, 1, 0, '', '');
+INSERT INTO `item` (`IDItem`, `IDOwner`, `DateDebut`, `DateFin`, `Categorie`, `Nom`, `Enchere`, `Achatdirect`, `Meilleuroffre`, `statut`, `Prix`, `urlPhoto`, `urlVideo`) VALUES
+(1, 'robinlabrot', '2020-04-15', '2020-04-30', 'Ferraille_Tresor', 'Statut Homme', 1, 1, 1, 0, 70, '', ''),
+(11, 'timotheebois', '2020-04-15', '2020-04-30', 'VIP', 'Bague Or', 1, 1, 0, 0, 200, '', ''),
+(16, 'pablomontels', '2020-04-17', '2020-04-18', 'VIP', 'Toto', 0, 1, 0, 0, 50, 'photo', '');
 
 -- --------------------------------------------------------
 
@@ -130,24 +108,17 @@ INSERT INTO `item` (`ID-Item`, `ID-Owner`, `DateDébut`, `DateFin`, `Prix`, `Cat
 
 DROP TABLE IF EXISTS `livraison`;
 CREATE TABLE IF NOT EXISTS `livraison` (
-  `ID-Utilisateur` varchar(255) NOT NULL,
+  `IDLivraison` int(255) NOT NULL AUTO_INCREMENT,
+  `IDPersonne` varchar(255) NOT NULL,
   `Adresse1` varchar(255) NOT NULL,
   `Adresse2` varchar(255) NOT NULL,
-  `Ville` varchar(255) NOT NULL,
   `CodePostal` int(5) NOT NULL,
+  `Ville` varchar(255) NOT NULL,
   `Pays` varchar(255) NOT NULL,
-  `Numéro` int(10) NOT NULL,
-  `ID-Livraison` int(11) NOT NULL,
-  PRIMARY KEY (`Numéro`,`ID-Livraison`),
-  KEY `ID-Utilisateur` (`ID-Utilisateur`)
+  `Numéro` int(20) NOT NULL,
+  PRIMARY KEY (`IDLivraison`),
+  KEY `IDPersonne` (`IDPersonne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `livraison`
---
-
-INSERT INTO `livraison` (`ID-Utilisateur`, `Adresse1`, `Adresse2`, `Ville`, `CodePostal`, `Pays`, `Numéro`, `ID-Livraison`) VALUES
-('pablomontels', '30 Rue Sibuet ', '.', 'Paris', 75012, 'France', 651352236, 1);
 
 -- --------------------------------------------------------
 
@@ -157,16 +128,15 @@ INSERT INTO `livraison` (`ID-Utilisateur`, `Adresse1`, `Adresse2`, `Ville`, `Cod
 
 DROP TABLE IF EXISTS `meilleuroffre`;
 CREATE TABLE IF NOT EXISTS `meilleuroffre` (
-  `ID-MeilleurVente` int(100) NOT NULL,
-  `ID-Item-M` int(100) NOT NULL,
-  `ID-Acheteur-M` varchar(255) NOT NULL,
+  `IDMeilleurOffre` int(255) NOT NULL AUTO_INCREMENT,
+  `IDItemM` int(255) NOT NULL,
+  `IDAcheteurM` varchar(255) NOT NULL,
   `Acceptation` tinyint(1) NOT NULL,
   `Compteur` int(100) NOT NULL,
-  `MeilleurOffre` int(255) NOT NULL,
-  `Sur-Enchere` int(255) NOT NULL,
-  PRIMARY KEY (`ID-MeilleurVente`),
-  KEY `ID-Item-M` (`ID-Item-M`),
-  KEY `ID-Acheteur-M` (`ID-Acheteur-M`)
+  `SurEnchere` int(255) NOT NULL,
+  PRIMARY KEY (`IDMeilleurOffre`),
+  KEY `IDItemM` (`IDItemM`),
+  KEY `IDAcheteurM` (`IDAcheteurM`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -177,13 +147,13 @@ CREATE TABLE IF NOT EXISTS `meilleuroffre` (
 
 DROP TABLE IF EXISTS `panier`;
 CREATE TABLE IF NOT EXISTS `panier` (
-  `ID-Acheteur` varchar(255) NOT NULL,
-  `ID-Item` int(100) NOT NULL,
-  `ID-Vente` int(255) NOT NULL,
-  `Prix` int(255) NOT NULL,
-  PRIMARY KEY (`ID-Vente`),
-  KEY `ID-Item` (`ID-Item`),
-  KEY `ID-Acheteur` (`ID-Acheteur`)
+  `IDVente` int(255) NOT NULL AUTO_INCREMENT,
+  `IDItemP` int(255) NOT NULL,
+  `IDAcheteurP` varchar(255) NOT NULL,
+  `PrixFinal` int(255) NOT NULL,
+  PRIMARY KEY (`IDVente`),
+  KEY `IDItemP` (`IDItemP`),
+  KEY `IDAcheteurP` (`IDAcheteurP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -196,7 +166,7 @@ DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `Pseudo` varchar(255) NOT NULL,
   `Nom` varchar(255) NOT NULL,
-  `Prénom` varchar(255) NOT NULL,
+  `Prenom` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Clause` tinyint(1) NOT NULL,
@@ -210,8 +180,9 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`Pseudo`, `Nom`, `Prénom`, `Email`, `Password`, `Clause`, `Admin`, `Vendeur`, `Acheteur`) VALUES
+INSERT INTO `utilisateur` (`Pseudo`, `Nom`, `Prenom`, `Email`, `Password`, `Clause`, `Admin`, `Vendeur`, `Acheteur`) VALUES
 ('clementjanot', 'Janot', 'Clément', 'clement.janot@edu.ece.fr', 'Acheteur123', 1, 0, 0, 1),
+('jeanmarcmontels', 'Montels', 'Jean-Marc', 'jean-marc.montels@edu.ece.fr', 'Jaeger1963', 1, 0, 1, 1),
 ('jeanneroques', 'Roques', 'Jeanne', 'jeanne.roques@edu.ece.fr', 'Admin456', 1, 1, 1, 1),
 ('pablomontels', 'Montels', 'Pablo', 'pablo.montels@edu.ece.fr', 'Admin123', 1, 1, 1, 1),
 ('robinlabrot', 'Labrot', 'Robin', 'robin.labrot@edu.ece.fr', 'Vendeur123', 1, 0, 1, 1),
@@ -231,35 +202,34 @@ ALTER TABLE `comptebancaire`
 -- Contraintes pour la table `enchere`
 --
 ALTER TABLE `enchere`
-  ADD CONSTRAINT `enchere_ibfk_1` FOREIGN KEY (`ID-Acheteur-E`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `enchere_ibfk_2` FOREIGN KEY (`ID-Item-E`) REFERENCES `item` (`ID-Item`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `enchere_ibfk_1` FOREIGN KEY (`IDAcheteurE`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enchere_ibfk_2` FOREIGN KEY (`IDItemE`) REFERENCES `item` (`IDItem`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `item`
 --
 ALTER TABLE `item`
-  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`ID-Owner`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `item_ibfk_2` FOREIGN KEY (`Catégorie`) REFERENCES `categorie` (`ID-Categorie`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`IDOwner`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `livraison`
 --
 ALTER TABLE `livraison`
-  ADD CONSTRAINT `livraison_ibfk_1` FOREIGN KEY (`ID-Utilisateur`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `livraison_ibfk_1` FOREIGN KEY (`IDPersonne`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `meilleuroffre`
 --
 ALTER TABLE `meilleuroffre`
-  ADD CONSTRAINT `meilleuroffre_ibfk_1` FOREIGN KEY (`ID-Item-M`) REFERENCES `item` (`ID-Item`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `meilleuroffre_ibfk_2` FOREIGN KEY (`ID-Acheteur-M`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `meilleuroffre_ibfk_1` FOREIGN KEY (`IDAcheteurM`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `meilleuroffre_ibfk_2` FOREIGN KEY (`IDItemM`) REFERENCES `item` (`IDItem`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `panier`
 --
 ALTER TABLE `panier`
-  ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`ID-Acheteur`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`ID-Item`) REFERENCES `item` (`ID-Item`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`IDAcheteurP`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`IDItemP`) REFERENCES `item` (`IDItem`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

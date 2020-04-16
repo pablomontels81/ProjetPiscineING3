@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,19 +131,20 @@
       </ul>
       </div>
   </nav>
+<div>
+  <?php 
+    $newvendeur = $_SESSION['newvendeur'];
+    echo $newvendeur;
+    $newvendeur ="";
+  ?>
+</div>
 <div class="container-fluid">
             <div id="login-row">
                 <div id="login-column" class="col-md-6 col-md-push-3">
                     <div id="login-box" class="col-md-12" >
-                        <form id="form-content" class="form" action="adminObjetAdd.php" method="post">
+                        <form id="form-content" action="adminObjetAdd.php" method="post">
                             <h3 class="text-center text-info">Formulaire d'Ajout d'un Objet</h3>
                             <div class="col-md-6">
-                              <div class="form-group">
-                                  <input type="text" class="form-control" placeholder="Nom du Propriétaire *"name="IDOwner" />
-                              </div>
-                              <div class="form-group">
-                                  <input type="text" class="form-control" placeholder="Nom de l'Objet *"name="nom" />
-                              </div>
                               <div class="form-group">
                                   <input type="text" class="form-control" placeholder="Votre Prix *" name="prix"/>
                               </div>

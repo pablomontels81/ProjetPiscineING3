@@ -4,16 +4,15 @@
 
 	///Récupération des Données pour création du compte
 	$login = isset($_POST["identifiant"])? $_POST["identifiant"] : "";
-	$pass = isset($_POST["password"])? $_POST["password"] : "";
+	$pass = isset($_POST["pass"])? $_POST["pass"] : "";
 	$nom = isset($_POST["nom"])? $_POST["nom"] : "";
 	$prenom = isset($_POST["prenom"])? $_POST["prenom"] : "";
-	$email = isset($_POST["email"])? $_POST["email"] : "";
+	$email = isset($_POST["toto"])? $_POST["toto"] : "";
 	$clause = isset($_POST["clause"])? $_POST["clause"] : "";
 	$vendeur = isset($_POST["vendeur"])? $_POST["vendeur"] : "";
 	$acheteur = isset($_POST["acheteur"])? $_POST["acheteur"] : "";
 	
 	$erreur = "";
-	$RequeteCo ="";
 	///Test Si champs de connection bien remplis
 	if ($login =="")
 	{
@@ -71,6 +70,9 @@
 	if ($db_found)
 	{
 		if ($erreur == "") {
+			echo $login;
+
+			
 			//Récupération de la Table et test si un pseudo pas déjà attribué ou si email déjà attribué.
 			$RequeteIn = "SELECT * FROM utilisateur WHERE Pseudo= '$login' OR Email= '$email'";
 			$ResultatRecherche = mysqli_query($db_handle, $RequeteIn);
@@ -94,18 +96,22 @@
 			{
 				echo '
 				<script language="JAVASCRIPT">
-	  				window.location.href = "Inscription_Page.php"
+	  				window.location.href = "Inscription_Page.html"
 				</script>';
 			}
 		}
 		else
 			{
+				echo $erreur;
+				
 				//Redirection vers Page Inscription car il y a un problème
 				echo '
 				<script language="JAVASCRIPT">
 	  				window.location.href = "Inscription_Page.html"
 				</script>' ;
 			}
+
+
 		
 		
 	}

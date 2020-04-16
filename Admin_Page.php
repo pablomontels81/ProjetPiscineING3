@@ -145,7 +145,7 @@
               <input type="text" class="form-control" placeholder="Nom d'Utilisateur du Vendeur:" name="IDOwner">
             </div>
             <input type="submit" class="btn btn-secondary btn-block but1" value="Ajouter Cet Objet" name="buttonAdd">
-            <input type="submit" class="btn btn-secondary btn-block but2" value="Supprimer Cet Objet" name="buttonSupp">
+            <input type="submit" class="btn btn-secondary btn-block but2" value="Supprimer Cet Objet" name="boutonSUP">
           </form>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 form ">

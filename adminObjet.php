@@ -49,14 +49,16 @@
             }
             else 
             {
+                $_SESSION['newvendeur']=$IDOwner;
+                $_SESSION['newObjet']=$nom;
                 echo '
                 <script language="JAVASCRIPT">
-                    window.location.href = "Vendre_Page_Admin.html"
+                    window.location.href = "Vendre_Page_Admin.php"
                 </script>';
 
             }
         }
-        if ($_POST["buttonSupp"])
+        if (isset($_POST["boutonSUP"]))
         {
             //Récupération si existance de la ligne item allant avec ce Propriétaire et Nom donné
             $Requete = "SELECT * FROM item WHERE IDOwner = '$IDOwner' AND Nom = '$nom'";
@@ -70,14 +72,14 @@
                 mysqli_query($db_handle, $sql);
                 echo '
                 <script language="JAVASCRIPT">
-                    window.location.href = "Home_Page.html"
+                    window.location.href = "HomePage.php"
                 </script>';
             }
             else 
             {
                 echo '
                 <script language="JAVASCRIPT">
-                    window.location.href = "Admin_Page.html"
+                    window.location.href = "Admin_Page.php"
                 </script>';
 
             }
