@@ -116,8 +116,8 @@
       <div class="item">
         <img src="images/louvres.png" alt="Image"style="width:1043px;height:348px;">
         <div class="carousel-caption">
-          <h3>Des bons pour musées</h3>
-          <p>Revisitez les plus beaux musées</p>
+          <h3>Bon pour musée</h3>
+          <p>Les plus belles antiquités</p>
         </div>      
       </div>
 
@@ -150,14 +150,14 @@
   <div class="row">
     <div class="col-sm-4">
        <a href="">
-         <img border="0" alt="" src="images/miroir.png" class="img-responsive" style="width:293px;height:156px;"></a>
+         <img border="0" alt="" src="images/pieces.jpg" class="img-responsive" style="width:293px;height:156px;"></a>
         <p><a href="default.asp">Ferraille et autres Trésors</a></p>  
     </div>
     
     <div class="col-sm-4"> 
       <a href="">
-         <img border="0" alt="" src="images/musée.jpg" class="img-responsive" style="width:293px;height:156px;"></a>
-        <p><a href="default.asp">Nos bons pour vos musées préférés</a></p>
+         <img border="0" alt="" src="images/antic.jpg" class="img-responsive" style="width:293px;height:156px;"></a>
+        <p><a href="default.asp">Bons pour les musées</a></p>
     </div>
      <div class="col-sm-4"> 
       <a href="">
