@@ -174,7 +174,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="images/malles.jpg" alt="" style="width:503px;height:348px;">
+        <img src="images/lustre.jpg" alt="" style="width:503px;height:348px;">
         <div class="carousel-caption">
           <h3>Ferrailles et autres trésors</h3>
           <p>Allez à leur découverte</p>
