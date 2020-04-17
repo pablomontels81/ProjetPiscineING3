@@ -62,10 +62,8 @@
       $MonCompte = "#";
       $Panier = "#";
     }
-
   }
   
-
 ?>
 
 
@@ -119,6 +117,18 @@
 }
 #login .container #login-row #login-column #login-box #login-form #register-link {
   margin-top: -85px;
+}
+.MonCompte
+{
+  background-image: url("images/univers.jpg");
+}
+.ContenuCompte
+{
+  background-color: white;
+}
+.ContenuCompteText
+{
+  color: white;
 }
 .note
 {
@@ -199,26 +209,175 @@
       </ul>
       </div>
   </nav>
+  <br>
 
-<h3 class="text-center">Bienvenue sur EceEbay</h6>
+<div class="MonCompte">
+<br><br>
+  <div class="ContenuCompteText">
+    <h1 class="text-center">
+      Bienvenue sur EceEbay
+      <?php
+        ///Test Si Login présent dans Base de Données puis si Bon Password
+        if ($db_found)
+        {
+          $sql = "SELECT * FROM utilisateur WHERE Pseudo= '$username'";
+          $result = mysqli_query($db_handle, $sql);
+          while ($data = mysqli_fetch_assoc($result)) {
+            echo $data['Prenom']." ".$data['Nom'];
+          }
+        }
+      ?>
+    </h1>
   
     <p class="text-center">Pionnier des ventes aux enchères en ligne</p>
-    <br><br>  
   </div>
+    <br><br>  
+  
+
+  <div class="container features ContenuCompte">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12 form">
+          <h3 class="feature-title">Enchère en cours ...</h3>
+          <form action="#" method="post">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Veuillez Sélectionner une Enchère</label>
+              <select class="form-control" id="exampleFormControlSelect1">
+                
+                <option>Aucune</option>
+                <?php
+                    ///Test Si Login présent dans Base de Données puis si Bon Password
+                    if ($db_found)
+                    {    
+                      $Recherche="
+                      SELECT item.Nom AS Nom
+                      FROM item 
+                      INNER JOIN enchere 
+                      ON item.IDItem=enchere.IDItemE 
+                      WHERE enchere.IDAcheteurE = '$username'";
+                      $resultatRecherche = mysqli_query($db_handle, $Recherche);
+                      //Affichage des enchère pour notre utilisateur
+                      while ($data = mysqli_fetch_array($resultatRecherche)) 
+                      {
+                        echo '
+                        <option>'.$data['Nom'].'</option>
+                        ';
+  
+                      }
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Enchère la plus haute en cours : </label>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Veuillez Saisir votre nouvelle Enchère: " name="nom">
+            </div>
+            <input type="submit" class="btn btn-secondary btn-block" value="Saisir ma nouvelle Enchère" name="buttonAddEnchere">
+          </form>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 form">
+          <h3 class="feature-title">Meilleur Offre en cours</h3>
+          <form action="#" method="post">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Veuillez Sélectionner une Meilleur Offre</label>
+              <select class="form-control" id="exampleFormControlSelect1">
+                <option>Aucune</option>
+                <?php
+                    ///Test Si Login présent dans Base de Données puis si Bon Password
+                    if ($db_found)
+                    {    
+                      $Recherche="
+                      SELECT item.Nom AS Nom
+                      FROM item 
+                      INNER JOIN meilleuroffre
+                      ON item.IDItem=meilleuroffre.IDItemM
+                      WHERE meilleuroffre.IDAcheteurM = '$username'";
+                      $resultatRecherche = mysqli_query($db_handle, $Recherche);
+                      //Affichage des enchère pour notre utilisateur
+                      while ($data = mysqli_fetch_array($resultatRecherche)) 
+                      {
+                        echo '
+                        <option>'.$data['Nom'].'</option>
+                        ';
+  
+                      }
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Contre Offre de la part du Vendeur : </label>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Nombre d'Essai restants : </label>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Veuillez Saisir votre nouvelle Enchère: " name="nom">
+            </div>
+            <input type="submit" class="btn btn-secondary btn-block but1" value="Saisir ma nouvelle Offre" name="buttonAddOffre">
+          </form>
+          <p class="text center">Si vous voulez accepter la Contre-Offre du vendeur veuillez simplement faire une Contre-Offre de la même valeur. Cependant cela doit être dans le temps imparti</p>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 form ">
+          <h3 class="feature-title">Récapitulatif de votre Compte !</h3>
+          <?php
+            if ($db_found)
+            {
+              $sql = "SELECT * FROM utilisateur WHERE Pseudo= '$username'";
+              $result = mysqli_query($db_handle, $sql);
+              while ($data = mysqli_fetch_assoc($result)) {
+                echo '
+               
+               <table class="table-hover">
+                  <tr>
+                  <td>Nom Utilisateur : &nbsp</td>
+                  <td>&nbsp'.$username.'</td>
+                </tr>
+                <tr>
+                  <td>Mot de Passe : &nbsp</td>
+                  <td>&nbsp'.$data['Password'].'</td>
+                </tr>
+                <tr>
+                  <td>Nom : &nbsp</td>
+                  <td>&nbsp'.$data['Nom'].'</td>
+                </tr>
+                <tr>
+                  <td>Prénom : &nbsp</td>
+                  <td>&nbsp'.$data['Prenom'].'</td>
+                </tr>
+                <tr>
+                  <td>Email : &nbsp</td>
+                  <td>&nbsp'.$data['Email'].'</td>
+                </tr>
+              </table>
+               ';
+              }
+            }
+          ?>
+          <input type="submit" class="btn btn-secondary btn-block" value="Modifer" name="">
+        </div>
+      </div>
+    </div>
+    <br><br>
 </div>
 
-<h3 class="text-center">Veuillez sélectionner un Objet disponible en Vente <br>par Enchère afin de pouvoir placer une Enchère !<br>Toute Enchère en cours se fera depuis votre Compte<br><br> <br><br> 
 
-<small>
+
+
+
 <footer class="container-fluid text-center">
   <p>Pour s'abonner à notre newsletter et être toujours à l'affut des bons plans c'est ici !</p>  
   <form class="form-inline">Inscrivez-vous:
     <input type="email" class="form-control" size="50" placeholder="Adresse mail">
     <button type="button" class="btn btn-danger">S'inscrire</button>
   </form>
-        <div class="container-fluid">
+</footer>
+<small>
+<footer class="page-footer">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-12"><br>
+          <div class="col-sm-12">
             <h6 class="text-center">Information additionnelle</h6>
             <p class="text-center">
             Nous pronons au sein de ce site, un esprit de bonne camarederie et seront vigilant à toutes formes de violences au sein de notre site. 
@@ -228,7 +387,9 @@
             </p>
           </div>
           <div class="col-sm-12">
-            
+            <br><br>
+ 
+
             <p class="text-center">
             <h6 class="text-center">Contact</h6>
             <p class="text-center">
@@ -241,8 +402,8 @@
         </div>
       </div>
       <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: Pablo MONTELS & Jeanne ROQUES</div>
-</footer>
+    </footer>
   </small>
-
 </body>
 </html>
+

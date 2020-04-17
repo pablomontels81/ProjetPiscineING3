@@ -3,7 +3,6 @@
     session_start();
 
     ///Récupération des Données pour Ajout Objet
-    $IDOwner = isset($_POST["IDOwner"])? $_POST["IDOwner"] : "";
     $nom = isset($_POST["nom"])? $_POST["nom"] : "";
     $prix = isset($_POST["prix"])? $_POST["prix"] : "";
     $categorie = isset($_POST["categorie"])? $_POST["categorie"] : "";
@@ -14,15 +13,11 @@
     $achatdirect = isset($_POST["achatdirect"])? $_POST["achatdirect"] : "";
     $enchere = isset($_POST["enchere"])? $_POST["enchere"] : "";
     $meilleuroffre = isset($_POST["meilleuroffre"])? $_POST["meilleuroffre"] : "";
-
+    $username = $_SESSION['username'];
 
     $erreur = "";
     $RequeteCo ="";
     ///Test Si champs de connection bien remplis
-    if ($IDOwner =="")
-    {
-        $erreur .= "Veuillez Saisir Le Nom du Propriétaire. <br>";
-    }
     if ($nom =="")
     {
         $erreur .= "Veuillez Saisir Le Nom de l'Objet. <br>";
@@ -65,7 +60,7 @@
         $erreur .= "Veuillez saisir un prix strictment positif";
     }
 
-    
+
     ///Récupération de la Base de Donnée et de la Table voulu (utilisateur)
     $database = "ebayece";
     //Connection à la Base de Données
@@ -73,6 +68,7 @@
     $db_found = mysqli_select_db($db_handle, $database);
     
     if ($erreur != "") {
+        
         echo '
             <script language="JAVASCRIPT">
                 window.location.href = "Vendre_Page.html"
@@ -82,7 +78,7 @@
     if ($db_found)
     {        
         //Récupération si existance de la ligne item allant avec ce Propriétaire & ce nom donné
-        $RequeteAdd = "SELECT * FROM item WHERE IDOwner = '$IDOwner' AND Nom = '$nom'";
+        $RequeteAdd = "SELECT * FROM item WHERE IDOwner = '$username' AND Nom = '$nom'";
         $ResultatRecherche = mysqli_query($db_handle, $RequeteAdd);
         //Si NbreResultatTrouvé = 1; alors cette objet existe déjà
         $NbreResultatTrouvé = mysqli_num_rows($ResultatRecherche);
@@ -90,16 +86,15 @@
         {
             echo '
             <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page_Admin.php"
+                window.location.href = "Vendre_Page.php"
             </script>';
         }
         
         if ($NbreResultatTrouvé == 0)
-        {
-                       
+        {           
             //Alors nous pouvons ajouter cette objet
             $RequeteIn = "INSERT INTO item (IDOwner,DateDebut,DateFin,Categorie,Nom,Enchere,Achatdirect,Meilleuroffre,statut,Prix,urlPhoto,urlVideo)
-                          VALUES ('$IDOwner','$DateDebut','$DateFin','$categorie','$nom','$enchere','$achatdirect','$meilleuroffre',0,'$prix','photo','$video')";
+                          VALUES ('$username','$DateDebut','$DateFin','$categorie','$nom','$enchere','$achatdirect','$meilleuroffre',0,'$prix','photo','$video')";
             $insertion = mysqli_query($db_handle, $RequeteIn);
             echo '
             <script language="JAVASCRIPT">
@@ -110,7 +105,7 @@
         {
             echo '
             <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page_Admin.html"
+                window.location.href = "Vendre_Page.html"
             </script>';
         }
         
