@@ -44,6 +44,11 @@
       $FerrailleTresor = "";
       $Musee = "";
       $VIP = "";
+      $AchatDirect = "";
+      $Enchere = "";
+      $MeilleurOffre = "";
+      $MonCompte = "MonCompte_Page";
+      $Panier = "";
     }
     else
     {
@@ -51,6 +56,11 @@
       $FerrailleTresor = "#";
       $Musee = "#";
       $VIP = "#";
+      $AchatDirect = "#";
+      $Enchere = "#";
+      $MeilleurOffre = "#";
+      $MonCompte = "#";
+      $Panier = "#";
     }
 
   }
@@ -173,9 +183,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Achat</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Achat Direct</a><br>
-              <a class="dropdown-item" href="#">Enchère</a><br>
-              <a class="dropdown-item" href="#">Meilleur Offre</a><br><br>
+              <a class="dropdown-item" href="<?php echo $AchatDirect ;?>">Achat Direct</a><br>
+              <a class="dropdown-item" href="<?php echo $Enchere ;?>">Enchère</a><br>
+              <a class="dropdown-item" href="<?php echo $MeilleurOffre ;?>">Meilleur Offre</a><br><br>
               
             </div>
           </li>
@@ -183,8 +193,8 @@
           <li><a href="<?php echo $admin; ?>">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
+        <li><a href="<?php echo $MonCompte ;?>"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
+        <li><a href="<?php echo $Panier ;?>"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
         <li><a href="Deconnexion_Page.php"><span class="glyphicon glyphicon-off"> Déconnexion</span></a></li>
       </ul>
       </div>

@@ -38,7 +38,7 @@
             //Récupération si existance de la ligne item allant avec ce Propriétaire et Nom donné
             $RequeteAdd = "SELECT * FROM item WHERE IDOwner = '$IDOwner' AND Nom = '$nom'";
             $ResultatRecherche = mysqli_query($db_handle, $RequeteAdd);
-            //Si NbreResultatTrouvé = 1; alors cette objet existe déjà
+            //Si NbreResultatTrouvé = 1; alors cette objet existe déjà.
             $NbreResultatTrouvé = mysqli_num_rows($ResultatRecherche);
             if ($NbreResultatTrouvé == 1) 
             {
@@ -49,13 +49,29 @@
             }
             else 
             {
-                $_SESSION['newvendeur']=$IDOwner;
-                $_SESSION['newObjet']=$nom;
-                echo '
-                <script language="JAVASCRIPT">
-                    window.location.href = "Vendre_Page_Admin.php"
-                </script>';
-
+                echo " Boucle Objet Non Repertorié <br>";
+                ///Test si Utilisateur est bien vendeur.
+                $RequeteAdd = "SELECT * FROM utilisateur WHERE Pseudo= '$IDOwner' AND Vendeur=1";
+                $ResultatRecherche = mysqli_query($db_handle, $RequeteAdd);
+                //Si NbreResultatTrouvé = 1; alors l'utilisateur est bien un vendeur
+                $NbreResultatTrouve = mysqli_num_rows($ResultatRecherche);
+                if ($NbreResultatTrouve == 1) 
+                {
+                    $_SESSION['newvendeur']=$IDOwner;
+                    $_SESSION['newObjet']=$nom;
+                    echo '
+                    <script language="JAVASCRIPT">
+                        window.location.href = "Vendre_Page_Admin.php"
+                    </script>';
+                }
+                else
+                {
+                    echo '
+                    <script language="JAVASCRIPT">
+                        window.location.href = "Admin_Page.php"
+                    </script>';
+                }
+                
             }
         }
         if (isset($_POST["boutonSUP"]))

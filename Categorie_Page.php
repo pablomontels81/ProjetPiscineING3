@@ -44,6 +44,11 @@
       $FerrailleTresor = "";
       $Musee = "";
       $VIP = "";
+      $AchatDirect = "";
+      $Enchere = "";
+      $MeilleurOffre = "";
+      $MonCompte = "MonCompte_Page";
+      $Panier = "";
     }
     else
     {
@@ -51,12 +56,18 @@
       $FerrailleTresor = "#";
       $Musee = "#";
       $VIP = "#";
+      $AchatDirect = "#";
+      $Enchere = "#";
+      $MeilleurOffre = "#";
+      $MonCompte = "#";
+      $Panier = "#";
     }
 
   }
   
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -134,9 +145,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Achat</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Achat Direct</a><br>
-              <a class="dropdown-item" href="#">Enchère</a><br>
-              <a class="dropdown-item" href="#">Meilleur Offre</a><br><br>
+              <a class="dropdown-item" href="<?php echo $AchatDirect ;?>">Achat Direct</a><br>
+              <a class="dropdown-item" href="<?php echo $Enchere;?>">Enchère</a><br>
+              <a class="dropdown-item" href="<?php echo $MeilleurOffre ;?>">Meilleur Offre</a><br><br>
               
             </div>
           </li>
@@ -144,8 +155,8 @@
           <li><a href="<?php echo $admin; ?>">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
+        <li><a href="<?php echo $MonCompte ;?>"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
+        <li><a href="<?php echo $Panier ;?>"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
         <li><a href="Deconnexion_Page.php"><span class="glyphicon glyphicon-off"> Déconnexion</span></a></li>
       </ul>
       </div>
@@ -208,18 +219,18 @@
     <div class="col-sm-4">
        <a href="">
          <img border="0" alt="" src="images/pieces.jpg" class="img-responsive" style="width:293px;height:156px;"></a>
-        <p><a href="default.asp">Ferraille et autres Trésors</a></p>  
+        <p><a href="<?php echo $FerrailleTresor ;?>">Ferraille et autres Trésors</a></p>  
     </div>
     
     <div class="col-sm-4"> 
       <a href="">
          <img border="0" alt="" src="images/antic.jpg" class="img-responsive" style="width:293px;height:156px;"></a>
-        <p><a href="default.asp">Bons pour les musées</a></p>
+        <p><a href="<?php echo $Musee ;?>">Bons pour les musées</a></p>
     </div>
      <div class="col-sm-4"> 
       <a href="">
          <img border="0" alt="" src="images/vip.jpg" class="img-responsive" style="width:293px;height:156px;"></a>
-        <p><a href="default.asp">Nos accessoires de luxes pour VIP</a></p>
+        <p><a href="<?php echo $VIP ;?>">Nos accessoires de luxes pour VIP</a></p>
     </div>
   </div>
   <br><br><br><br>

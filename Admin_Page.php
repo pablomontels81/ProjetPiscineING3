@@ -44,6 +44,11 @@
       $FerrailleTresor = "";
       $Musee = "";
       $VIP = "";
+      $AchatDirect = "";
+      $Enchere = "";
+      $MeilleurOffre = "";
+      $MonCompte = "MonCompte_Page";
+      $Panier = "";
     }
     else
     {
@@ -51,6 +56,11 @@
       $FerrailleTresor = "#";
       $Musee = "#";
       $VIP = "#";
+      $AchatDirect = "#";
+      $Enchere = "#";
+      $MeilleurOffre = "#";
+      $MonCompte = "#";
+      $Panier = "#";
     }
 
   }
@@ -74,34 +84,82 @@
       margin-bottom: -20px;
       border-radius: 0;
       border-bottom-color: black;
+
     }
-   
-    #table-spacing {
-      border-spacing: 5px;
-    }
+    
     /* Remove the jumbotron's default bottom margin */ 
     .jumbotron {
       margin-bottom: 0;
     }
-    .form {
-      margin-left: 0;
-    }
-    .but1 {
-      background-color: green;
-    }
-    .but2 {
-      background-color: red;
-    }
+   
     /* Add a gray background color and some padding to the footer */
     footer {
       background-color: #f2f2f2;
       padding: 25px;
     }
- /*   .uni{
-     background-image: url("images/univers.jpg");
-    }*/
-    
-  </style>
+    #entete {
+      color: white;
+    }
+    #login {
+   margin: 0;
+   padding: 0;
+   background-image: url("images/univers.jpg");
+    height: 100vh;
+}
+#login .container #login-row #login-column #login-box {
+  margin-top: 10px;
+  margin-left: auto;
+  max-width: 600px;
+  height: 450px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+.note
+{
+    text-align: center;
+    height: 80px;
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    color: #fff;
+    font-weight: bold;
+    line-height: 80px;
+}
+#form-content
+{
+    margin-top: 50px;
+    padding: 2%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+    background-color: #EAEAEA;
+}
+.form-control{
+    border-radius:1.5rem;
+}
+.btnSubmit
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+}
+.but1
+{
+  background-color: green;
+}
+.but2
+{
+  background-color: red;
+}
+</style>
+
 </head>
 <body>
 
@@ -134,9 +192,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Achat</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Achat Direct</a><br>
-              <a class="dropdown-item" href="#">Enchère</a><br>
-              <a class="dropdown-item" href="#">Meilleur Offre</a><br><br>
+              <a class="dropdown-item" href="<?php echo $AchatDirect ;?>">Achat Direct</a><br>
+              <a class="dropdown-item" href="<?php echo $Enchere ;?>">Enchère</a><br>
+              <a class="dropdown-item" href="<?php echo $MeilleurOffre ;?>">Meilleur Offre</a><br><br>
               
             </div>
           </li>
@@ -144,13 +202,12 @@
           <li><a href="<?php echo $admin; ?>">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
+        <li><a href="<?php echo $MonCompte ;?>"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
+        <li><a href="<?php echo $Panier ;?>"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
         <li><a href="Deconnexion_Page.php"><span class="glyphicon glyphicon-off"> Déconnexion</span></a></li>
       </ul>
       </div>
   </nav>
-
 
 
 <br><br>
