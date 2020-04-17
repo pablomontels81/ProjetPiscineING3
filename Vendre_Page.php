@@ -201,7 +201,7 @@
   </nav>
 <div class="container-fluid">
             <div id="login-row">
-                <div id="login-column" class="col-md-6 col-md-push-3">
+                <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12" >
                         <form id="form-content" class="form" action="traitementajoutobjet.php" method="post">
                             <h3 class="text-center text-info">Formulaire d'Ajout d'un Objet</h3>
@@ -263,7 +263,88 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <div id="login-row">
+                <br><br>
+                <div class="col-lg-3 col-md-3 col-sm-12 form">
+                    <h3 class="feature-title">Enchère en cours ...</h3>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Vos Enchères en cours</label>
+                        <table class="table-bordered">
+                          <tr>
+                            <th>Nom de l'Objet</th>
+                            <th >Nom de l'Acheteur</th>
+                            <th >Prix proposé par l'acheteur</th>
+                          </tr>
+                          <?php
+                            ///Test Si Login présent dans Base de Données puis si Bon Password
+                            if ($db_found)
+                            {    
+                              $Recherche="
+                              SELECT enchere.IDAcheteurE AS Acheteur, enchere.PrixMax AS PrixMax, item.Nom AS Nom
+                              FROM enchere 
+                              INNER JOIN item 
+                              ON enchere.IDItemE = item.IDItem 
+                              WHERE item.IDOwner = '$username'";
+                              $resultatRecherche = mysqli_query($db_handle, $Recherche);
+                              //Affichage des enchère pour notre utilisateur
+                              while ($data = mysqli_fetch_array($resultatRecherche)) 
+                              {
+                                echo '
+                                  <tr class="table-secondary">
+                                    <td>&nbsp'.$data['Nom'].'</td>
+                                    <td>&nbsp'.$data['Acheteur'].'</td>
+                                    <td>&nbsp'.$data['PrixMax'].'</td>
+                                  </tr>
+                                  ';
+                              }
+                            }
+                          ?>
+                         </table>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-12 form">
+                    <h3 class="feature-title">Meilleur Offre en cours</h3>
+                    <form action="#" method="post">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Veuillez Sélectionner une Meilleur Offre</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Aucune</option>
+                          <?php
+                          ///Test Si Login présent dans Base de Données puis si Bon Password
+                          if ($db_found)
+                            {    
+                              $Recherche="
+                              SELECT item.Nom AS Nom
+                              FROM item 
+                              INNER JOIN meilleuroffre
+                              ON item.IDItem=meilleuroffre.IDItemM
+                              WHERE meilleuroffre.IDAcheteurM = '$username'";
+                              $resultatRecherche = mysqli_query($db_handle, $Recherche);
+                              //Affichage des enchère pour notre utilisateur
+                              while ($data = mysqli_fetch_array($resultatRecherche)) 
+                              {
+                                echo '
+                                <option>'.$data['Nom'].'</option>
+                                    ';
+                              }
+                            }
+                          ?>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Contre Offre de la part du Vendeur : </label>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Nombre d'Essai restants : </label>
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Veuillez Saisir votre nouvelle Enchère: " name="nom">
+                      </div>
+                      <input type="submit" class="btn btn-secondary btn-block but1" value="Saisir ma nouvelle Offre" name="buttonAddOffre">
+                    </form>
+                  </div>
+            </div>
+</div>
 
 <footer class="page-footer">
       <div class="container-fluid">
