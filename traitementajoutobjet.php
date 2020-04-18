@@ -14,6 +14,7 @@
     $enchere = isset($_POST["enchere"])? $_POST["enchere"] : "";
     $meilleuroffre = isset($_POST["meilleuroffre"])? $_POST["meilleuroffre"] : "";
     $username = $_SESSION['username'];
+    $clause =0;
 
     $erreur = "";
     $RequeteCo ="";
@@ -94,7 +95,7 @@
         {           
             //Alors nous pouvons ajouter cette objet
             $RequeteIn = "INSERT INTO item (IDOwner,DateDebut,DateFin,Categorie,Nom,Enchere,Achatdirect,Meilleuroffre,statut,Prix,urlPhoto,urlVideo)
-                          VALUES ('$username','$DateDebut','$DateFin','$categorie','$nom','$enchere','$achatdirect','$meilleuroffre',0,'$prix','photo','$video')";
+                          VALUES ('$username','$DateDebut','$DateFin','$categorie','$nom','$enchere','$achatdirect','$meilleuroffre','$clause','$prix','$photo','$video')";
             $insertion = mysqli_query($db_handle, $RequeteIn);
             echo '
             <script language="JAVASCRIPT">

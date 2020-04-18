@@ -47,8 +47,8 @@
       $AchatDirect = "";
       $Enchere = "";
       $MeilleurOffre = "";
-      $MonCompte = "MonCompte_Page";
-      $Panier = "";
+      $MonCompte = "MonCompte_Page.php";
+      $Panier = "Panier_Page.php";
     }
     else
     {

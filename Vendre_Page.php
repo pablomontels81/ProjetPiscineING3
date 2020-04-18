@@ -41,14 +41,14 @@
     if ($Nbresult == 1)
     {
       $categorie = "Categorie_Page.php";
-      $FerrailleTresor = "";
-      $Musee = "";
-      $VIP = "";
-      $AchatDirect = "";
-      $Enchere = "";
-      $MeilleurOffre = "";
-      $MonCompte = "MonCompte_Page";
-      $Panier = "";
+      $FerrailleTresor = "FerrailleTresor_Page.php";
+      $Musee = "BonMusee_Page.php";
+      $VIP = "AccessoireVIP_Page.php";
+      $AchatDirect = "AchatDirectSansItem_Page.php";
+      $Enchere = "EnchereSansItem_Page.php";
+      $MeilleurOffre = "MeilleurOffreSansItem_Page.php";
+      $MonCompte = "MonCompte_Page.php";
+      $Panier = "Panier_Page.php";
     }
     else
     {
@@ -62,12 +62,9 @@
       $MonCompte = "#";
       $Panier = "#";
     }
-
   }
   
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -210,12 +207,12 @@
                                   <input type="text" class="form-control" placeholder="Nom de l'Objet *"name="nom" />
                               </div>
                               <div class="form-group">
-                                  <input type="text" class="form-control" placeholder="Votre Prix *" name="prix"/>
+                                  <input type="number" class="form-control" placeholder="Votre Prix *" name="prix"/>
                               </div>
                               <div class="form-group">
                                   <select name="categorie">
                                     <option value="">Veuillez choisir une Catégorie</option>
-                                    <option value="Ferraille_Tresor">Ferraille ou Trésor</option>
+                                    <option value="Feraille_Tresor">Ferraille ou Trésor</option>
                                     <option value="Musee">Bon pour le Musée</option>
                                     <option value="VIP">Accessoire VIP</option>
                                   </select>

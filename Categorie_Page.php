@@ -28,7 +28,7 @@
     $Nbresult = mysqli_num_rows($result);
     if ($Nbresult == 1)
     {
-        $vendeur = "Vendre_Page.php";
+      $vendeur = "Vendre_Page.php";
     }
     else
     {
@@ -41,14 +41,14 @@
     if ($Nbresult == 1)
     {
       $categorie = "Categorie_Page.php";
-      $FerrailleTresor = "";
-      $Musee = "";
-      $VIP = "";
-      $AchatDirect = "";
-      $Enchere = "";
-      $MeilleurOffre = "";
-      $MonCompte = "MonCompte_Page";
-      $Panier = "";
+      $FerrailleTresor = "FerrailleTresor_Page.php";
+      $Musee = "BonMusee_Page.php";
+      $VIP = "AccessoireVIP_Page.php";
+      $AchatDirect = "AchatDirectSansItem_Page.php";
+      $Enchere = "EnchereSansItem_Page.php";
+      $MeilleurOffre = "MeilleurOffreSansItem_Page.php";
+      $MonCompte = "MonCompte_Page.php";
+      $Panier = "Panier_Page.php";
     }
     else
     {
@@ -62,10 +62,8 @@
       $MonCompte = "#";
       $Panier = "#";
     }
-
   }
   
-
 ?>
 
 
@@ -174,7 +172,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="images/lustre.jpg" alt="" style="width:503px;height:348px;">
+        <img src="images/malles.jpg" alt="" style="width:503px;height:348px;">
         <div class="carousel-caption">
           <h3>Ferrailles et autres trésors</h3>
           <p>Allez à leur découverte</p>
@@ -218,7 +216,7 @@
   <div class="row">
     <div class="col-sm-4">
        <a href="">
-         <img border="0" alt="" src="images/pieces.jpg" class="img-responsive" style="width:293px;height:156px;"></a>
+         <img border="0" alt="" src="images/pieces.png" class="img-responsive" style="width:293px;height:156px;"></a>
         <p><a href="<?php echo $FerrailleTresor ;?>">Ferraille et autres Trésors</a></p>  
     </div>
     

@@ -41,14 +41,14 @@
     if ($Nbresult == 1)
     {
       $categorie = "Categorie_Page.php";
-      $FerrailleTresor = "";
-      $Musee = "";
-      $VIP = "";
-      $AchatDirect = "";
-      $Enchere = "";
-      $MeilleurOffre = "";
-      $MonCompte = "MonCompte_Page";
-      $Panier = "";
+      $FerrailleTresor = "FerrailleTresor_Page.php";
+      $Musee = "BonMusee_Page.php";
+      $VIP = "AccessoireVIP_Page.php";
+      $AchatDirect = "AchatDirectSansItem_Page.php";
+      $Enchere = "EnchereSansItem_Page.php";
+      $MeilleurOffre = "MeilleurOffreSansItem_Page.php";
+      $MonCompte = "MonCompte_Page.php";
+      $Panier = "Panier_Page.php";
     }
     else
     {
@@ -62,12 +62,9 @@
       $MonCompte = "#";
       $Panier = "#";
     }
-
   }
   
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

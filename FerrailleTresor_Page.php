@@ -1,4 +1,70 @@
-
+<?php
+  session_start();
+  ///Test pour reconnaître les droits
+  $username = $_SESSION['username'];
+  ///Récupération de la Base de Donnée et de la Table voulu (utilisateur)
+  $database = "ebayece";
+  //Connection à la Base de Données
+  $db_handle = mysqli_connect('localhost', 'root', '' );
+  $db_found = mysqli_select_db($db_handle, $database);
+  ///Test Si Login présent dans Base de Données puis si Bon Password
+  if ($db_found)
+  {
+    //Test si Admin
+    $sql = "SELECT * FROM utilisateur WHERE Pseudo= '$username' AND Admin = 1 ";
+    $result = mysqli_query($db_handle, $sql);
+    $Nbresult = mysqli_num_rows($result);
+    if ($Nbresult == 1)
+    {
+        $admin = "Admin_Page.php";
+    }
+    else
+    {
+      $admin = "#";
+    }
+    //Test si Vendeur
+    $sql = "SELECT * FROM utilisateur WHERE Pseudo= '$username' AND Vendeur = 1 ";
+    $result = mysqli_query($db_handle, $sql);
+    $Nbresult = mysqli_num_rows($result);
+    if ($Nbresult == 1)
+    {
+        $vendeur = "Vendre_Page.php";
+    }
+    else
+    {
+      $vendeur = "#";
+    }
+    //Test si Acheteur
+    $sql = "SELECT * FROM utilisateur WHERE Pseudo= '$username' AND Acheteur = 1 ";
+    $result = mysqli_query($db_handle, $sql);
+    $Nbresult = mysqli_num_rows($result);
+    if ($Nbresult == 1)
+    {
+      $categorie = "Categorie_Page.php";
+      $FerrailleTresor = "FerrailleTresor_Page.php";
+      $Musee = "BonMusee_Page.php";
+      $VIP = "AccessoireVIP_Page.php";
+      $AchatDirect = "AchatDirectSansItem_Page.php";
+      $Enchere = "EnchereSansItem_Page.php";
+      $MeilleurOffre = "MeilleurOffreSansItem_Page.php";
+      $MonCompte = "MonCompte_Page.php";
+      $Panier = "Panier_Page.php";
+    }
+    else
+    {
+      $categorie = "#";
+      $FerrailleTresor = "#";
+      $Musee = "#";
+      $VIP = "#";
+      $AchatDirect = "#";
+      $Enchere = "#";
+      $MeilleurOffre = "#";
+      $MonCompte = "#";
+      $Panier = "#";
+    }
+  }
+  
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,35 +126,37 @@
       <div class="collapse navbar-collapse"
          id="main-navigation">
         <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Accueil</a></li>
+        <li class="active"><a href="HomePage.php">Accueil</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie</a>
+            <a class="nav-link dropdown-toggle" href="<?php echo $categorie ;?>" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Ferraillerie et trésor</a><br>
-              <a class="dropdown-item" href="#">Bon Pour le Musée</a><br>
-              <a class="dropdown-item" href="#">Accessoire VIP</a><br><br>
+              <a class="dropdown-item" href="<?php echo $categorie ;?>">Voir les Catégories</a><br>
+              <a class="dropdown-item" href="<?php echo $FerrailleTresor ;?>">Feraille ou Trésor</a><br>
+              <a class="dropdown-item" href="<?php echo $Musee ;?>">Bon Pour le Musée</a><br>
+              <a class="dropdown-item" href="<?php echo $VIP ;?>">Accessoire VIP</a><br><br>
               <div class="dropdown-divider"></div>
             </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Achat</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Achat Direct</a><br>
-              <a class="dropdown-item" href="#">Enchère</a><br>
-              <a class="dropdown-item" href="#">Meilleur Offre</a><br><br>
+              <a class="dropdown-item" href="<?php echo $AchatDirect ;?>">Achat Direct</a><br>
+              <a class="dropdown-item" href="<?php echo $Enchere;?>">Enchère</a><br>
+              <a class="dropdown-item" href="<?php echo $MeilleurOffre ;?>">Meilleur Offre</a><br><br>
               
             </div>
           </li>
-          <li><a href="Vendre_Page.html">Vendre</a></li>
-          <li><a href="#">Admin</a></li>
+          <li><a href="<?php echo $vendeur; ?>"; ?>Vendre</a></li>
+          <li><a href="<?php echo $admin; ?>">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
+        <li><a href="<?php echo $MonCompte ;?>"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
+        <li><a href="<?php echo $Panier ;?>"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier</a></li>
         <li><a href="Deconnexion_Page.php"><span class="glyphicon glyphicon-off"> Déconnexion</span></a></li>
       </ul>
       </div>
   </nav>
+  
 <br><br><br><br><br>
 
 <!-- CARROUSSEL -->
@@ -144,76 +212,47 @@
 
 <div class="container">    
   <div class="row">
-    <div class="col-sm-4">
-      <div class= "panel-footer"><br>
-        <div class="panel-body"><img src="images/meuble.jpg" class="img-responsive" style="width:300px; height:180px"; alt="Image"></div><br>
-      </div>
-        <br><div class="panel-white">Meuble 18ème siècle</div>
-        <strong><div class="panel-white">75€</div></strong>
+    <?php 
+    if ($db_found) 
+    {
+      $categorie = "Feraille_Tresor";
+      $statut =0;
+      //Récupération des données
+      $sql = "SELECT * 
+          FROM Item 
+          WHERE Categorie = '$categorie' AND statut ='$statut'";
+      $result = mysqli_query($db_handle,$sql);
+      //Boucle pour récupérer tous les Objets a afficher
+      while ($data = mysqli_fetch_array($result)) 
+      {
+        
+        echo 
+        '
+        <div class="col-sm-4">
+            <div class= "panel-footer"><br>
+              <div class="panel-body"><img src="images/'.$data['urlPhoto'].'" class="img-responsive" style="width:300px; height:180px"; alt="Image"></div><br>
+              </div>
+            <br>
+            <div class="panel-white">'.$data['Nom'].'</div>
+            <strong><div class="panel-white">'.$data['Prix'].'&nbsp€</div></strong>';
+            //Test pour connaître les options d'achat
+            if ($data['Achatdirect'] == 1) {
+              echo'<button type="button" value='.$data['IDItem'].'>Achat Direct</button>';
+            }
+            if ($data['Enchere'] == 1) {
+              echo'<button type="button" value='.$data['IDItem'].'>Enchère</button>';
+            }
+            if ($data['Meilleuroffre'] == 1) {
+              echo'<button type="button" value='.$data['IDItem'].'>Meilleur Offre</button>';
+            }
+            echo'
+          <br><br>  
+        </div>';
+        
+      }
+    }
+    ?>
 
-<button type="button">Achat Direct</button><button type="button">Enchère</button><button type="button">Meilleure offre</button>
-    <br><br>  
-  </div>
-
-    
-  <div class="row">
-    <div class="col-sm-4">
-      <div class= "panel-footer"><br>
-        <div class="panel-body"><img src="images/miroir.jpg" class="img-responsive" style="width:300px; height:180px"; alt="Image"></div><br>
-      </div>
-        <br><div class="panel-white">Miroir d'époque</div>
-        <strong><div class="panel-white">115€</div></strong>
-<button type="button">Achat Direct</button><button type="button">Enchère</button><button type="button">Meilleure offre</button>
-     <br><br>   
-    </div>
-
-
-   
-  <div class="row">
-    <div class="col-sm-4">
-      <div class= "panel-footer"><br>
-        <div class="panel-body"><img src="images/malles.jpg" class="img-responsive" style="width:300px; height:180px"; alt="Image"></div><br>
-      </div>
-        <br><div class="panel-white">Malles style grandes découvertes du 19ème</div>
-        <strong><div class="panel-white">400€</div></strong>
-        <button type="button">Achat Direct</button><button type="button">Enchère</button><button type="button">Meilleure offre</button>
-        <br><br>
-<br><br>
-    </div>
-</div>
-
-
-<div class="container">    
-   <div class="row">
-    <div class="col-sm-4">
-      <div class= "panel-footer"><br>
-        <div class="panel-body"><img src="images/ferraille.jpg" class="img-responsive" style="width:300px; height:180px"; alt="Image"></div><br>
-      </div>
-        <br><div class="panel-white">Casserole en ferraille du 19ème siècle</div>
-        <strong><div class="panel-white">75€</div></strong>
-        <button type="button">Achat Direct</button><button type="button">Enchère</button><button type="button">Meilleure offre</button>
-        <br><br>
-    </div>
-     <div class="row">
-    <div class="col-sm-4">
-      <div class= "panel-footer"><br>
-        <div class="panel-body"><img src="images/pieces.jpg" class="img-responsive" style="width:300px; height:180px"; alt="Image"></div><br>
-      </div>
-        <br><div class="panel-white">Pièces 5 francs Napoléon III</div>
-        <strong><div class="panel-white">220€</div></strong>
-        <button type="button">Achat Direct</button><button type="button">Enchère</button><button type="button">Meilleure offre</button>
-      <br><br> 
-    </div>
-    <div class="row">
-    <div class="col-sm-4">
-      <div class= "panel-footer"><br>
-        <div class="panel-body"><img src="images/piece2.png" class="img-responsive" style="width:300px; height:180px"; alt="Image"></div><br>
-      </div>
-        <br><div class="panel-white">Pièce Napoléon 1er</div>
-        <strong><div class="panel-white">760€</div></strong>
-        <button type="button">Achat Direct</button><button type="button">Enchère</button><button type="button">Meilleure offre</button>
-        <br><br>
-    </div>
 </div><br><br>
 
 <footer class="page-footer">

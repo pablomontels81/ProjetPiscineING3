@@ -44,6 +44,11 @@
       $FerrailleTresor = "";
       $Musee = "";
       $VIP = "";
+      $AchatDirect = "";
+      $Enchere = "";
+      $MeilleurOffre = "";
+      $MonCompte = "MonCompte_Page.php";
+      $Panier = "Panier_Page.php";
     }
     else
     {
@@ -51,6 +56,11 @@
       $FerrailleTresor = "#";
       $Musee = "#";
       $VIP = "#";
+      $AchatDirect = "#";
+      $Enchere = "#";
+      $MeilleurOffre = "#";
+      $MonCompte = "#";
+      $Panier = "#";
     }
 
   }

@@ -41,12 +41,12 @@
     if ($Nbresult == 1)
     {
       $categorie = "Categorie_Page.php";
-      $FerrailleTresor = "";
-      $Musee = "";
-      $VIP = "";
-      $AchatDirect = "";
-      $Enchere = "";
-      $MeilleurOffre = "";
+      $FerrailleTresor = "FerrailleTresor_Page.php";
+      $Musee = "BonMusee_Page.php";
+      $VIP = "AccessoireVIP_Page.php";
+      $AchatDirect = "AchatDirectSansItem_Page.php";
+      $Enchere = "EnchereSansItem_Page.php";
+      $MeilleurOffre = "MeilleurOffreSansItem_Page.php";
       $MonCompte = "MonCompte_Page.php";
       $Panier = "Panier_Page.php";
     }
@@ -62,10 +62,8 @@
       $MonCompte = "#";
       $Panier = "#";
     }
-
   }
   
-
 ?>
 
 <!DOCTYPE html>
@@ -119,6 +117,19 @@
 #login .container #login-row #login-column #login-box #login-form #register-link {
   margin-top: -85px;
 }
+.MonCompte
+{
+  background-image: url("images/univers.jpg");
+}
+.ContenuCompte
+{
+  background-color: white;
+  margin-bottom: 20px;
+}
+.ContenuCompteText
+{
+  color: white;
+}
 .note
 {
     text-align: center;
@@ -149,7 +160,12 @@
     background: #0062cc;
     color: #fff;
 }
+.formborder {
+  border-color: black;
+  background-color: white;
+}
   </style>
+}
 </head>
 <body>
 
@@ -198,26 +214,176 @@
       </ul>
       </div>
   </nav>
+  <br>
 
-<h3 class="text-center">Bienvenue sur EceEbay</h6>
+<div class="MonCompte">
+<br><br>
+  <div class="ContenuCompteText">
+    <h1 class="text-center">
+      Bienvenue sur EceEbay
+      <?php
+        ///Test Si Login présent dans Base de Données puis si Bon Password
+        if ($db_found)
+        {
+          $sql = "SELECT * FROM utilisateur WHERE Pseudo= '$username'";
+          $result = mysqli_query($db_handle, $sql);
+          while ($data = mysqli_fetch_assoc($result)) {
+            echo $data['Prenom']." ".$data['Nom'];
+          }
+        }
+      ?>
+    </h1>
   
     <p class="text-center">Pionnier des ventes aux enchères en ligne</p>
-    <br><br>  
   </div>
+    <br><br>  
+  
+
+  <div class="container features ContenuCompte">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 formborder">
+          <h3 class="feature-title">Récapitulatif de Votre Panier</h3>
+          <table class="table">
+            <tr>
+              <th scope="col">Nom de l'Objet </th>
+              <th scope="col">Prix de l'Objet </th>
+              <th scope="col">Prix Cumulé</th>
+            </tr>
+            <?php
+              if ($db_found) 
+              {
+                $PrixTot =0;
+                $Recherche="
+                SELECT item.Nom AS Nom, panier.PrixFinal AS Prix
+                FROM panier 
+                INNER JOIN item 
+                ON item.IDItem=panier.IDItemP 
+                WHERE panier.IDAcheteurP = '$username'";
+                $resultatRecherche = mysqli_query($db_handle, $Recherche);
+                //Affichage des enchère pour notre utilisateur
+                while ($data = mysqli_fetch_array($resultatRecherche)) 
+                {
+                  $PrixTot=$PrixTot + $data['Prix'];
+                  echo '
+                  <tr>
+                  <td>'.$data['Nom'].'</td>
+                  <td>'.$data['Prix'].'</td>
+                  <td>'.$PrixTot.'</td>
+                  </tr>';      
+                }
+              }
+            ?>
+          </table>
+          <form action="suppressionItemPanier.php" method="post">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Veuillez Sélectionner l'item à supprimer si besoin !</label>
+              <select class="form-control" id="exampleFormControlSelect1" name="Objet">
+                <option>Aucune</option>
+                <?php
+                    ///Test Si Login présent dans Base de Données puis si Bon Password
+                    if ($db_found)
+                    {    
+                      $Recherche="
+                      SELECT item.Nom AS Nom, panier.PrixFinal AS Prix, item.IDItem AS ID
+                      FROM panier 
+                      INNER JOIN item 
+                      ON item.IDItem=panier.IDItemP 
+                      WHERE panier.IDAcheteurP = '$username'";
+                      $resultatRecherche = mysqli_query($db_handle, $Recherche);
+                      //Affichage des enchère pour notre utilisateur
+                      while ($data = mysqli_fetch_array($resultatRecherche)) 
+                      {
+                        $PrixTot=$PrixTot + $data['Prix'];
+                        echo '
+                        <option value='.$data['ID'].'>'.$data['Nom'].'</option>';      
+                      }
+                  }
+                ?>
+              </select>
+            </div> 
+            <input type="submit" class="btn btn-secondary btn-block but1" value="Supprimer cet élément de mon panier" name="buttonSuppItem">           
+          </form>
+            
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 form">
+          <h3 class="feature-title">Meilleur Offre en cours</h3>
+          <form id="login-form" class="form" action="traitementinscription.php" method="post">
+            <div class="form-group">
+                <label class="text-info">Adresse 1:</label><br>
+                <input type="text" name="Adresse1" class="form-control">
+                                
+                <label class="text-info">Adresse 2:</label><br>
+                <input type="text" name="Adresse2" class="form-control">
+                  
+                <label class="text-info">Ville:</label><br>
+                <input type="text" name="Ville" class="form-control">
+                                
+                <label class="text-info">Code Postal:</label><br>
+                <input type="text" name="CP" class="form-control">
+
+                <label class="text-info">Pays:</label><br>
+                <input type="text" name="Pays" class="form-control">
+
+            </div>
+            <input type="submit" class="btn btn-secondary btn-block but1" value="Saisie de l'Adresse de Livraison" name="buttonSuppItem">
+          </form>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 form">
+          <h3 class="feature-title">Meilleur Offre en cours</h3>
+          <form id="login-form" class="form" action="traitementinscription.php" method="post">
+            <div class="form-group">
+                <label class="text-info">Numéro de Carte:</label><br>
+                <input type="text" name="NumCarte" class="form-control">
+                                
+                <label class="text-info">Cryptogramme:</label><br>
+                <input type="text" name="Cryptogramme" class="form-control">
+                                
+                <label class="text-info">Nom Propriétaire:</label><br>
+                <input type="text" name="NomProprio" class="form-control">
+                                
+                <label class="text-info">Date d'Expiration:</label><br>
+                <input type="date" name="DateExpir" class="form-control">
+
+                <label class="text-info">Type De Carte:</label><br>
+                <select class="form-control" id="exampleFormControlSelect1" name="TypeCarte">
+                  <option value=""></option>
+                  <option value="Visa">Visa </option>
+                  <option value="MasterCard">MasterCard</option>
+                  <option value="American Express">American Express</option>
+                  <option value="Paypal">Paypal</option>
+                </select>
+
+              </div>
+              <input type="submit" class="btn btn-secondary btn-block but1" value="Saisie de l'Adresse de Livraison" name="buttonSuppItem">
+              <br>
+              <div align="center">
+                  <input type="submit" name="Commander" class="btn btn-info btn-md" value="Commander !">
+              </div>
+              <br>
+          </form>
+        </div>
+      </div>
+    </div>
+    <br><br>
 </div>
 
-<h3 class="text-center">Veuillez sélectionner un Objet disponible en Vente<br> par Meilleur Offre afin de pouvoir placer une Meilleur Offre !<br>Toute Négociation en cours se fera depuis votre Compte <br><br> <br><br> 
 
-<small>
+
+
+
+
 <footer class="container-fluid text-center">
   <p>Pour s'abonner à notre newsletter et être toujours à l'affut des bons plans c'est ici !</p>  
   <form class="form-inline">Inscrivez-vous:
     <input type="email" class="form-control" size="50" placeholder="Adresse mail">
     <button type="button" class="btn btn-danger">S'inscrire</button>
   </form>
-        <div class="container-fluid">
+</footer>
+<small>
+<footer class="page-footer">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-12"><br>
+          <div class="col-sm-12">
             <h6 class="text-center">Information additionnelle</h6>
             <p class="text-center">
             Nous pronons au sein de ce site, un esprit de bonne camarederie et seront vigilant à toutes formes de violences au sein de notre site. 
@@ -227,7 +393,9 @@
             </p>
           </div>
           <div class="col-sm-12">
-            
+            <br><br>
+ 
+
             <p class="text-center">
             <h6 class="text-center">Contact</h6>
             <p class="text-center">
@@ -240,8 +408,8 @@
         </div>
       </div>
       <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: Pablo MONTELS & Jeanne ROQUES</div>
-</footer>
+    </footer>
   </small>
-
 </body>
 </html>
+
