@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 18 avr. 2020 à 09:40
+-- Généré le :  Dim 19 avr. 2020 à 17:01
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.4.0
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `comptebancaire`;
 CREATE TABLE IF NOT EXISTS `comptebancaire` (
-  `ID-Util` varchar(255) NOT NULL,
+  `IDUtil` varchar(255) NOT NULL,
   `NumBancaire` varchar(255) NOT NULL,
   `Cryptogramme` int(25) NOT NULL,
   `NomCarte` varchar(255) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `comptebancaire` (
   `DateExpiration` date NOT NULL,
   `Fond` int(255) NOT NULL,
   PRIMARY KEY (`NumBancaire`),
-  KEY `ID-Util` (`ID-Util`),
+  KEY `ID-Util` (`IDUtil`),
   KEY `NomCarte` (`NomCarte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -46,8 +46,9 @@ CREATE TABLE IF NOT EXISTS `comptebancaire` (
 -- Déchargement des données de la table `comptebancaire`
 --
 
-INSERT INTO `comptebancaire` (`ID-Util`, `NumBancaire`, `Cryptogramme`, `NomCarte`, `TypeCarte`, `DateExpiration`, `Fond`) VALUES
-('pablomontels', '1423-8034-7618-1803', 983, 'Montels', 'MasterCard', '2023-02-01', 100000);
+INSERT INTO `comptebancaire` (`IDUtil`, `NumBancaire`, `Cryptogramme`, `NomCarte`, `TypeCarte`, `DateExpiration`, `Fond`) VALUES
+('pablomontels', '1423-8034-7618-1803', 983, 'Montels', 'MasterCard', '2023-02-01', 100000),
+('pablomontels', '1423-8034-7777-1803', 976, 'Montels', 'Visa', '2020-04-25', 200);
 
 -- --------------------------------------------------------
 
@@ -64,15 +65,17 @@ CREATE TABLE IF NOT EXISTS `enchere` (
   PRIMARY KEY (`IDEnchere`),
   KEY `IDItemE` (`IDItemE`),
   KEY `IDAcheteurE` (`IDAcheteurE`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `enchere`
 --
 
 INSERT INTO `enchere` (`IDEnchere`, `IDItemE`, `IDAcheteurE`, `PrixMax`) VALUES
-(1, 1, 'jeanmarcmontels', 20),
-(2, 1, 'pablomontels', 150);
+(1, 1, 'pablomontels', 160),
+(2, 2, 'jeanmarcmontels', 151),
+(9, 3, 'pablomontels', 21),
+(11, 1, 'robinlabrot', 189);
 
 -- --------------------------------------------------------
 
@@ -105,10 +108,10 @@ CREATE TABLE IF NOT EXISTS `item` (
 
 INSERT INTO `item` (`IDItem`, `IDOwner`, `DateDebut`, `DateFin`, `Categorie`, `Nom`, `Enchere`, `Achatdirect`, `Meilleuroffre`, `statut`, `Prix`, `urlPhoto`, `urlVideo`) VALUES
 (1, 'robinlabrot', '2020-04-15', '2020-04-30', 'Feraille_Tresor', 'Statut Homme', 1, 1, 1, 0, 70, 'StatutHomme.jpg', ''),
-(2, 'robinlabrot', '2020-04-17', '2020-05-30', 'VIP', 'Bague Love ', 1, 1, 0, 0, 300, 'BagueLove.jpg', ''),
+(2, 'robinlabrot', '2020-04-17', '2020-04-19', 'VIP', 'Bague Love ', 1, 1, 0, 1, 300, 'BagueLove.jpg', ''),
 (3, 'timotheebois', '2020-04-15', '2020-04-30', 'VIP', 'Bague Or', 1, 1, 0, 0, 200, 'BagueOr.jpg', ''),
 (4, 'timotheebois', '2020-04-17', '2020-05-29', 'VIP', 'Collier Moncler', 1, 1, 1, 0, 270, 'CollierMoncler.png', ''),
-(5, 'pablomontels', '2020-04-19', '2020-05-09', 'Feraille_Tresor', 'Fauteuil Louis XVI', 0, 1, 1, 0, 100, 'FauteuilLouisXVI.jpg', ''),
+(5, 'pablomontels', '2020-04-19', '2020-05-09', 'Feraille_Tresor', 'Fauteuil Louis XVI', 0, 1, 1, 1, 100, 'FauteuilLouisXVI.jpg', ''),
 (6, 'pablomontels', '2020-04-23', '2020-05-09', 'Feraille_Tresor', 'Meuble Louis XV', 1, 1, 0, 0, 200, 'MeubleLouisXV.jpg', ''),
 (7, 'robinlabrot', '2020-04-17', '2020-05-16', 'Feraille_Tresor', 'Mirroir Louis XVI', 1, 1, 1, 0, 35, 'MirroirLouisXVI.jpg', ''),
 (8, 'timotheebois', '2020-04-17', '2020-05-16', 'Musee', 'Pièce datant de l\'époque de Napoléon', 1, 0, 1, 0, 100, 'PieceNapoleon.jpg', ''),
@@ -147,10 +150,17 @@ CREATE TABLE IF NOT EXISTS `livraison` (
   `CodePostal` int(5) NOT NULL,
   `Ville` varchar(255) NOT NULL,
   `Pays` varchar(255) NOT NULL,
-  `Numéro` int(20) NOT NULL,
+  `Numero` int(20) NOT NULL,
   PRIMARY KEY (`IDLivraison`),
   KEY `IDPersonne` (`IDPersonne`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `livraison`
+--
+
+INSERT INTO `livraison` (`IDLivraison`, `IDPersonne`, `Adresse1`, `Adresse2`, `CodePostal`, `Ville`, `Pays`, `Numero`) VALUES
+(1, 'pablomontels', '30 rue Sibuet', '', 75012, 'Paris', 'France', 651352236);
 
 -- --------------------------------------------------------
 
@@ -169,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `meilleuroffre` (
   PRIMARY KEY (`IDMeilleurOffre`),
   KEY `IDItemM` (`IDItemM`),
   KEY `IDAcheteurM` (`IDAcheteurM`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `meilleuroffre`
@@ -190,17 +200,26 @@ CREATE TABLE IF NOT EXISTS `panier` (
   `IDItemP` int(255) NOT NULL,
   `IDAcheteurP` varchar(255) NOT NULL,
   `PrixFinal` int(255) NOT NULL,
+  `Statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`IDVente`),
   KEY `IDItemP` (`IDItemP`),
   KEY `IDAcheteurP` (`IDAcheteurP`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `panier`
 --
 
-INSERT INTO `panier` (`IDVente`, `IDItemP`, `IDAcheteurP`, `PrixFinal`) VALUES
-(2, 3, 'pablomontels', 30);
+INSERT INTO `panier` (`IDVente`, `IDItemP`, `IDAcheteurP`, `PrixFinal`, `Statut`) VALUES
+(1, 3, 'pablomontels', 200, 0),
+(2, 2, 'pablomontels', 30, 0),
+(4, 2, 'jeanmarcmontels', 151, 0),
+(10, 5, 'robinlabrot', 100, 0),
+(12, 2, 'jeanmarcmontels', 151, 0),
+(13, 2, 'jeanmarcmontels', 151, 0),
+(14, 5, 'robinlabrot', 120, 0),
+(15, 2, 'jeanmarcmontels', 151, 0),
+(16, 2, 'jeanmarcmontels', 151, 0);
 
 -- --------------------------------------------------------
 
@@ -219,6 +238,8 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `Admin` tinyint(1) NOT NULL,
   `Vendeur` tinyint(1) NOT NULL,
   `Acheteur` tinyint(1) NOT NULL,
+  `PhotoFond` varchar(255) NOT NULL,
+  `PhotoProfil` varchar(255) NOT NULL,
   PRIMARY KEY (`Pseudo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -226,14 +247,14 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`Pseudo`, `Nom`, `Prenom`, `Email`, `Password`, `Clause`, `Admin`, `Vendeur`, `Acheteur`) VALUES
-('clementjanot', 'Janot', 'Clément', 'clement.janot@edu.ece.fr', 'Acheteur123', 1, 0, 0, 1),
-('jeanmarcmontels', 'Montels', 'Jean-Marc', 'jean-marc.montels@edu.ece.fr', 'Jaeger1963', 1, 0, 1, 1),
-('jeanneroques', 'Roques', 'Jeanne', 'jeanne.roques@edu.ece.fr', 'Admin456', 1, 1, 1, 1),
-('martinmontels', 'Montels', 'Martin', 'martin.montels@edu.ece.fr', 'Jaeger2001', 1, 0, 1, 1),
-('pablomontels', 'Montels', 'Pablo', 'pablo.montels@edu.ece.fr', 'Admin123', 1, 1, 1, 1),
-('robinlabrot', 'Labrot', 'Robin', 'robin.labrot@edu.ece.fr', 'Vendeur123', 1, 0, 1, 1),
-('timotheebois', 'Bois', 'Timothée', 'timothe.bois@edu.ece.fr', 'Vendeur456', 1, 0, 1, 0);
+INSERT INTO `utilisateur` (`Pseudo`, `Nom`, `Prenom`, `Email`, `Password`, `Clause`, `Admin`, `Vendeur`, `Acheteur`, `PhotoFond`, `PhotoProfil`) VALUES
+('clementjanot', 'Janot', 'Clément', 'clement.janot@edu.ece.fr', 'Acheteur123', 1, 0, 0, 1, '', ''),
+('jeanmarcmontels', 'Montels', 'Jean-Marc', 'jean-marc.montels@edu.ece.fr', 'Jaeger1963', 1, 0, 1, 1, '', ''),
+('jeanneroques', 'Roques', 'Jeanne', 'jeanne.roques@edu.ece.fr', 'Admin456', 1, 1, 1, 1, '', ''),
+('martinmontels', 'Montels', 'Martin', 'martin.montels@edu.ece.fr', 'Jaeger2001', 1, 0, 1, 1, '', ''),
+('pablomontels', 'Montels', 'Pablo', 'pablo.montels@edu.ece.fr', 'Admin123', 1, 1, 1, 1, 'PabloMontels.jpg', ''),
+('robinlabrot', 'Labrot', 'Robin', 'robin.labrot@edu.ece.fr', 'Vendeur123', 1, 0, 1, 1, '', ''),
+('timotheebois', 'Bois', 'Timothée', 'timothe.bois@edu.ece.fr', 'Vendeur456', 1, 0, 1, 0, '', '');
 
 --
 -- Contraintes pour les tables déchargées
@@ -243,7 +264,7 @@ INSERT INTO `utilisateur` (`Pseudo`, `Nom`, `Prenom`, `Email`, `Password`, `Clau
 -- Contraintes pour la table `comptebancaire`
 --
 ALTER TABLE `comptebancaire`
-  ADD CONSTRAINT `comptebancaire_ibfk_1` FOREIGN KEY (`ID-Util`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comptebancaire_ibfk_1` FOREIGN KEY (`IDUtil`) REFERENCES `utilisateur` (`Pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `enchere`

@@ -234,18 +234,29 @@
       				</div>
         		<br>
         		<div class="panel-white">'.$data['Nom'].'</div>
-        		<strong><div class="panel-white">'.$data['Prix'].'&nbsp€</div></strong>';
+        		<strong><div class="panel-white">'.$data['Prix'].'&nbsp€</div></strong>
+            <form action="traitementAchat.php" method="post">';
         		//Test pour connaître les options d'achat
         		if ($data['Achatdirect'] == 1) {
-        			echo'<button type="button" value='.$data['IDItem'].'>Achat Direct</button>';
+        			echo'
+              <a href=AchatDirect_Page.php?IDItem='.$data['IDItem'].'>
+              <button type="button" name="AchatDirect" value='.$data['IDItem'].'>Achat Direct</button>
+              </a>';
         		}
         		if ($data['Enchere'] == 1) {
-        			echo'<button type="button" value='.$data['IDItem'].'>Enchère</button>';
+        			echo'
+              <a href=AchatEnchere_Page.php?IDItem='.$data['IDItem'].'>
+              <button type="button" name="Enchere" value='.$data['IDItem'].'>Enchère</button>
+              </a>';
         		}
         		if ($data['Meilleuroffre'] == 1) {
-        			echo'<button type="button" value='.$data['IDItem'].'>Meilleur Offre</button>';
+        			echo'
+              <a href=AchatMeilleurOffre_Page.php?IDItem='.$data['IDItem'].'>
+              <button type="button" name="MeilleurOffre" value='.$data['IDItem'].'>Meilleur Offre</button>
+              </a>';
         		}
-        		echo'
+        		echo
+            '</form>
     			<br><br>  
   			</div>';
   			

@@ -165,7 +165,7 @@
   background-color: white;
 }
   </style>
-}
+
 </head>
 <body>
 
@@ -242,7 +242,7 @@
   <div class="container features ContenuCompte">
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12 formborder">
-          <h3 class="feature-title">Récapitulatif de Votre Panier</h3>
+          <h3 class="feature-title text-center">Récapitulatif de Votre Panier</h3>
           <table class="table">
             <tr>
               <th scope="col">Nom de l'Objet </th>
@@ -252,13 +252,14 @@
             <?php
               if ($db_found) 
               {
+                $statut=0;
                 $PrixTot =0;
                 $Recherche="
                 SELECT item.Nom AS Nom, panier.PrixFinal AS Prix
                 FROM panier 
                 INNER JOIN item 
                 ON item.IDItem=panier.IDItemP 
-                WHERE panier.IDAcheteurP = '$username'";
+                WHERE panier.IDAcheteurP = '$username' AND panier.Statut='$statut'";
                 $resultatRecherche = mysqli_query($db_handle, $Recherche);
                 //Affichage des enchère pour notre utilisateur
                 while ($data = mysqli_fetch_array($resultatRecherche)) 
@@ -288,7 +289,7 @@
                       FROM panier 
                       INNER JOIN item 
                       ON item.IDItem=panier.IDItemP 
-                      WHERE panier.IDAcheteurP = '$username'";
+                      WHERE panier.IDAcheteurP = '$username' AND panier.Statut='$statut'";
                       $resultatRecherche = mysqli_query($db_handle, $Recherche);
                       //Affichage des enchère pour notre utilisateur
                       while ($data = mysqli_fetch_array($resultatRecherche)) 
@@ -301,13 +302,13 @@
                 ?>
               </select>
             </div> 
-            <input type="submit" class="btn btn-secondary btn-block but1" value="Supprimer cet élément de mon panier" name="buttonSuppItem">           
+            <input type="submit" class="btn btn-secondary btn-block but1" value="Supprimer cet élément de mon panier" name="buttonSuppItem">         
           </form>
             
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 form">
-          <h3 class="feature-title">Meilleur Offre en cours</h3>
-          <form id="login-form" class="form" action="traitementinscription.php" method="post">
+          <h3 class="feature-title text-center">Saisie de l'Adresse de Livraison</h3>
+          <form id="login-form" class="form" action="traitementCommande.php" method="post">
             <div class="form-group">
                 <label class="text-info">Adresse 1:</label><br>
                 <input type="text" name="Adresse1" class="form-control">
@@ -324,13 +325,50 @@
                 <label class="text-info">Pays:</label><br>
                 <input type="text" name="Pays" class="form-control">
 
+                <label class="text-info">Numéro:</label><br>
+                <input type="text" name="Numero" class="form-control">
+
             </div>
-            <input type="submit" class="btn btn-secondary btn-block but1" value="Saisie de l'Adresse de Livraison" name="buttonSuppItem">
-          </form>
+            <h3 class="feature-title text-center">Adresse de Livraison déjà Enregistré !</h3>
+            <p class="text-center">Si vous voulez utiliser une Adresse existante veuillez la saisir dans les champs. Sinon veuillez saisir l'Adresse de Livraison souhaitée.</p>
+            <table class="table">
+              <tr>
+                <th scope="col">Adresse 1 </th>
+                <th scope="col">Adresse 2 </th>
+                <th scope="col">Ville</th>
+                <th scope="col">Code Postal </th>
+                <th scope="col">Pays </th>
+                <th scope="col">Numéro</th>
+              </tr>
+            <?php
+              ///Test Si Login présent dans Base de Données puis si Bon Password
+              if ($db_found)
+              {    
+                $Recherche="
+                  SELECT livraison.Adresse1 AS Adresse1, livraison.Adresse2 AS Adresse2, livraison.CodePostal AS CP, livraison.Ville AS Ville, livraison.Pays AS Pays, livraison.Numero AS Numero
+                  FROM livraison 
+                  WHERE livraison.IDPersonne = '$username'";
+                $resultatRecherche = mysqli_query($db_handle, $Recherche);
+                //Affichage des enchère pour notre utilisateur
+                while ($data = mysqli_fetch_array($resultatRecherche)) 
+                {
+                  echo '
+                    <tr>
+                    <td>'.$data['Adresse1'].'</td>
+                    <td>'.$data['Adresse2'].'</td>
+                    <td>'.$data['Ville'].'</td>
+                    <td>'.$data['CP'].'</td>
+                    <td>'.$data['Pays'].'</td>
+                    <td>'.$data['Numero'].'</td>
+                    </tr>';     
+                }
+              }
+            ?>
+            </table>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 form">
-          <h3 class="feature-title">Meilleur Offre en cours</h3>
-          <form id="login-form" class="form" action="traitementinscription.php" method="post">
+          <h3 class="feature-title text-center">Saisie du Mode de Paiement</h3>
+          
             <div class="form-group">
                 <label class="text-info">Numéro de Carte:</label><br>
                 <input type="text" name="NumCarte" class="form-control">
@@ -353,15 +391,55 @@
                   <option value="Paypal">Paypal</option>
                 </select>
 
-              </div>
-              <input type="submit" class="btn btn-secondary btn-block but1" value="Saisie de l'Adresse de Livraison" name="buttonSuppItem">
-              <br>
-              <div align="center">
-                  <input type="submit" name="Commander" class="btn btn-info btn-md" value="Commander !">
-              </div>
-              <br>
-          </form>
+                <label class="text-info">Fond Disponible:</label><br>
+                <input type="number" name="Fond" class="form-control">
+
+            </div>
+          <h3 class="feature-title text-center">Adresse de Livraison déjà Enregistré !</h3>
+            <p class="text-center">Si vous voulez utiliser une Adresse existante veuillez la saisir dans les champs. Sinon veuillez saisir l'Adresse de Livraison souhaitée.</p>
+            <table class="table">
+              <tr>
+                <th scope="col">Num Bancaire </th>
+                <th scope="col">Cryptogramme </th>
+                <th scope="col">Nom Propri</th>
+                <th scope="col">Type de Carte </th>
+                <th scope="col">Date d'Expiration </th>
+                <th scope="col">Fond</th>
+              </tr>
+            <?php
+              ///Test Si Login présent dans Base de Données puis si Bon Password
+              if ($db_found)
+              {    
+                $Recherche="
+                  SELECT comptebancaire.NumBancaire AS NumBancaire, comptebancaire.Cryptogramme AS Cryptogramme, comptebancaire.NomCarte AS NomCarte, comptebancaire.TypeCarte AS TypeCarte, comptebancaire.DateExpiration AS DateExpiration, comptebancaire.Fond AS Fond
+                  FROM comptebancaire 
+                  WHERE comptebancaire.IDUtil = '$username'";
+                $resultatRecherche = mysqli_query($db_handle, $Recherche);
+                //Affichage des enchère pour notre utilisateur
+                while ($data = mysqli_fetch_array($resultatRecherche)) 
+                {
+                  echo '
+                    <tr>
+                    <td>'.$data['NumBancaire'].'</td>
+                    <td>'.$data['Cryptogramme'].'</td>
+                    <td>'.$data['NomCarte'].'</td>
+                    <td>'.$data['TypeCarte'].'</td>
+                    <td>'.$data['DateExpiration'].'</td>
+                    <td>'.$data['Fond'].'</td>
+                    </tr>';     
+                }
+              }
+            ?>
+          </table>
+          <div>
+            <input type="submit" name="Commander" class="btn btn-info btn-md" value="Commander !">
+          </div>
+        </form>
         </div>
+            <br>
+            <br>
+        </div>
+      </form>
       </div>
     </div>
     <br><br>

@@ -62,6 +62,57 @@
       $MonCompte = "#";
       $Panier = "#";
     }
+
+    ///Recherche d'Enchère arrivant en fin de temps
+    $DateActuelle = date('y-m-d');
+    $testEnchere = "
+      SELECT item.IDItem AS ID
+      FROM enchere 
+      INNER JOIN item 
+      ON item.IDItem = enchere.IDItemE 
+      WHERE item.DateFin <= '$DateActuelle' 
+      ";
+    $result = mysqli_query($db_handle, $testEnchere);
+    while ($data = mysqli_fetch_array($result)) 
+    {
+      ///Recherche du Gagnant de l'enchère
+      $Item = $data['ID'];
+      $GagnantEnchere = "
+        SELECT IDItemE, IDAcheteurE, PrixMax 
+        FROM enchere 
+        WHERE enchere.IDEnchere='$Item' 
+        GROUP BY PrixMax DESC LIMIT 1"; 
+      //Récupération du Gagnant
+      $RecupGagnant = mysqli_query($db_handle, $GagnantEnchere);
+      while ($dataGagnant = mysqli_fetch_array($RecupGagnant)) 
+      {
+        //Récupération des données pour ajouter au panier
+        $Item = $dataGagnant['IDItemE'];
+        $Acheteur = $dataGagnant['IDAcheteurE'];
+        $Prix = $dataGagnant['PrixMax'];
+        //Ajout au panier de l'Acheteur 
+        $sql = "
+          INSERT INTO panier (IDItemP , IDAcheteurP , PrixFinal , Statut)
+          VALUES ('$Item','$Acheteur','$Prix',0)";
+        $insertion = mysqli_query($db_handle,$sql);
+        //Désactivation de l'Item pour qu'il ne puisse être acheté après les enchères en mode Achat Libre
+        $newstatut = 1;
+        $sql = "
+          UPDATE item
+          SET statut = '$newstatut'
+          WHERE IDItem = '$Item'";
+        $update = mysqli_query($db_handle,$sql);
+
+      }
+    }
+    ///Recherche de Meilleur Offre ayant dépassé les 5 chances
+    $Compteur = 5;
+    $testOffre = "
+      DELETE 
+      FROM meilleuroffre 
+      WHERE Compteur > '$Compteur' ";
+    $update = mysqli_query($db_handle,$testOffre);
+
   }
   
 ?>

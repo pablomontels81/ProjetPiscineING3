@@ -2,6 +2,7 @@
   session_start();
   ///Test pour reconnaître les droits
   $username = $_SESSION['username'];
+  $IDItem = $_GET['IDItem'];
   ///Récupération de la Base de Donnée et de la Table voulu (utilisateur)
   $database = "ebayece";
   //Connection à la Base de Données
@@ -44,9 +45,9 @@
       $FerrailleTresor = "FerrailleTresor_Page.php";
       $Musee = "BonMusee_Page.php";
       $VIP = "AccessoireVIP_Page.php";
-      $AchatDirect = "AchatDirectSansItem_Page.php";
-      $Enchere = "EnchereSansItem_Page.php";
-      $MeilleurOffre = "MeilleurOffreSansItem_Page.php";
+      $AchatDirect = "AchatDirect_Page";
+      $Enchere = "Enchere_Page";
+      $MeilleurOffre = "MeilleurOffre_Page";
       $MonCompte = "MonCompte_Page.php";
       $Panier = "Panier_Page.php";
     }
@@ -65,6 +66,7 @@
   }
   
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,6 +113,8 @@
   </style>
 </head>
 <body>
+
+
 <nav class="navbar navbar-expand-md">
       <a class="navbar-brand" href="#">
         <img src="logotest.png"
@@ -156,109 +160,64 @@
       </ul>
       </div>
   </nav>
+
 <br><br><br><br><br>
 
-<!-- CARROUSSEL -->
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-        <img src="images/louvres.png" alt="Image"style="width:1043px;height:348px;">
-        <div class="carousel-caption">
-          <h3>Bon pour musée</h3>
-          <p>Les plus belles antiquités</p>
-        </div>      
-      </div>
+<br><br>
+<br><br>
 
-      <div class="item">
-        <img src="images/carrou1.png" alt="" style="width:703px;height:448px;">
-        <div class="carousel-caption">
-          <h3>Bon pour le musée</h3>
-          <p>Les plus belles antiquités</p>
-        </div>      
-      </div>
-
-      <div class="item">
-        <img src="images/carrou2.png" alt="Image"style="width:703px;height:448px;">
-        <div class="carousel-caption">
-          <h3>Bon pour musée</h3>
-          <p>Les plus belles antiquités</p>
-        </div>      
-      </div>
-    </div>  
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+<FONT size= "12pt"><center><strong><div class="panel-white">Achat par meilleure offre !</div></strong></center><br><br></FONT>
+<div class="container">
+    <div class="row">
+       <?php
+                $_SESSION['IDitem']=$IDItem;
+                $sql = "
+                  SELECT * 
+                  FROM item 
+                  WHERE IDItem ='$IDItem'";
+                $result=mysqli_query($db_handle,$sql);
+                while ($data = mysqli_fetch_array($result)) 
+                {
+                  echo'
+                  <div class="col-sm-4">
+                    <div class= "panel-footer"><br>
+                      <div class="panel-body">
+                        <img src="images/'.$data['urlPhoto'].'" class="img-responsive" style="width:300px; height:180px"; alt="Image">
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-7">
+                        <div class= "panel-footer"><br>
+                            <div class="panel-body"><strong>
+                              '.$data['Nom'].'</strong><br>
+                              Vendeur : '.$data['IDOwner'].'<br>
+                              Prix : '.$data['Prix'].' €<br>
+                              ID : '.$IDItem.'<br><br>
+                              <form action="traitementMeilleurOffre.php" method="post">
+                                <label name="IDItem" value=".$IDItem.">
+                                Montant de votre Meilleur Offre :</label>
+                                <input type="number" name="PrixMax">
+                                <br>
+                                <input type="submit" value="Placer une Meilleur Offre">
+                              <br>
+                              </form>
+                            </div><br>
+                        </div>
+                        <br>
+                        <br><br>   
+                    </div>
+                  </div>';
+                }
+              ?>          
+    </div>
 </div>
 
-<br><br>
-<br><br>
-<br><br>
+<br><br><br><br><br><br><br><br>
 
-<div class="container">    
-  <div class="row">
-    <?php 
-    if ($db_found) 
-    {
-      $categorie = "Musee";
-      //Récupération des données
-      $sql = "SELECT * 
-          FROM Item 
-          WHERE Categorie = '$categorie' AND statut =0";
-      $result = mysqli_query($db_handle,$sql);
-      //Boucle pour récupérer tous les Objets a afficher
-      while ($data = mysqli_fetch_array($result)) 
-      {
-        echo 
-        '
-        <div class="col-sm-4">
-            <div class= "panel-footer"><br>
-              <div class="panel-body"><img src="images/'.$data['urlPhoto'].'" class="img-responsive" style="width:300px; height:180px"; alt="Image"></div><br>
-              </div>
-            <br>
-            <div class="panel-white">'.$data['Nom'].'</div>
-            <strong><div class="panel-white">'.$data['Prix'].'&nbsp€</div></strong>';
-            //Test pour connaître les options d'achat
-            if ($data['Achatdirect'] == 1) {
-              echo'
-              <a href=AchatDirect_Page.php?IDItem='.$data['IDItem'].'>
-              <button type="button" name="AchatDirect" value='.$data['IDItem'].'>Achat Direct</button>
-              </a>';
-            }
-            if ($data['Enchere'] == 1) {
-              echo'
-              <a href=AchatEnchere_Page.php?IDItem='.$data['IDItem'].'>
-              <button type="button" name="Enchere" value='.$data['IDItem'].'>Enchère</button>
-              </a>';
-            }
-            if ($data['Meilleuroffre'] == 1) {
-              echo'
-              <a href=AchatMeilleurOffre_Page.php?IDItem='.$data['IDItem'].'>
-              <button type="button" name="MeilleurOffre" value='.$data['IDItem'].'>Meilleur Offre</button>
-              </a>';
-            }
-            echo'
-          <br><br>  
-        </div>';
-        
-      }
-    }
-    ?>
 
-</div><br><br>
 
 <footer class="page-footer">
       <div class="container-fluid">

@@ -72,7 +72,7 @@
         
         echo '
             <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page.html"
+                window.location.href = "Vendre_Page.php"
             </script>';
     }
     ///Test Si Login présent dans Base de Données puis si Bon Password
@@ -106,7 +106,7 @@
         {
             echo '
             <script language="JAVASCRIPT">
-                window.location.href = "Vendre_Page.html"
+                window.location.href = "Vendre_Page.php"
             </script>';
         }
         

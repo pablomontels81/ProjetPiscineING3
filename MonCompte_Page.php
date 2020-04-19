@@ -62,6 +62,19 @@
       $MonCompte = "#";
       $Panier = "#";
     }
+    //Récupération des photos
+    $PhotoFond="PabloMontels.jpg";
+    $PhotoProfil="";
+    $sqlPhoto= "
+      SELECT PhotoFond, PhotoProfil
+      FROM utilisateur
+      WHERE Pseudo = '$username'";
+    $result= mysqli_query($db_handle, $sqlPhoto);
+    while ($data =mysqli_fetch_assoc($result)) 
+    {
+      $PhotoFond = $data['PhotoFond'];
+      $PhotoProfil = $data['PhotoProfil'];
+    }
   }
   
 ?>
@@ -100,7 +113,7 @@
     #login {
    margin: 0;
    padding: 0;
-   background-image: url("images/univers.jpg");
+   background-image: url("images/<?php echo $PhotoFond ?>");
     height: 100vh;
 }
 #login .container #login-row #login-column #login-box {
@@ -237,18 +250,19 @@
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-12 form">
           <h3 class="feature-title">Enchère en cours ...</h3>
-          <form action="#" method="post">
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Veuillez Sélectionner une Enchère</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                
-                <option>Aucune</option>
+              <label for="exampleFormControlSelect1">Enchère en cours</label>
+              <table class="table-bordered">
+                <tr>
+                  <th>Objet </th>
+                  <th>Enchère en cours</th>
+                </tr>
                 <?php
                     ///Test Si Login présent dans Base de Données puis si Bon Password
                     if ($db_found)
                     {    
                       $Recherche="
-                      SELECT item.Nom AS Nom
+                      SELECT item.Nom AS Nom, enchere.PrixMax AS Prix, item.IDItem AS ID
                       FROM item 
                       INNER JOIN enchere 
                       ON item.IDItem=enchere.IDItemE 
@@ -258,36 +272,38 @@
                       while ($data = mysqli_fetch_array($resultatRecherche)) 
                       {
                         echo '
-                        <option>'.$data['Nom'].'</option>
-                        ';
+                        <tr>
+                          <td>'.$data['Nom'].'</td>
+                          <td align="right">'.$data['Prix'].'</td>
+                        </tr>'
+                        ;
   
                       }
                   }
                 ?>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Enchère la plus haute en cours : </label>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Veuillez Saisir votre nouvelle Enchère: " name="nom">
-            </div>
-            <input type="submit" class="btn btn-secondary btn-block" value="Saisir ma nouvelle Enchère" name="buttonAddEnchere">
-          </form>
+              </table>
+              <br><br>
+              <p>
+                Veuillez allez sur l'onglet Catégorie afin de sélectionner l'Objet sur lequel vous voulez augmenter votre enchère.
+              </p>            
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-12 form">
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 form">
           <h3 class="feature-title">Meilleur Offre en cours</h3>
-          <form action="#" method="post">
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Veuillez Sélectionner une Meilleur Offre</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>Aucune</option>
+              <label for="exampleFormControlSelect1">Meilleur Offre en cours</label>
+              <table class="table-bordered">
+                <tr>
+                  <th scope="col"> Objet </th>
+                  <th scope="col"> Contre Offre </th>
+                  <th scope="col"> Nombre d'Essai </th>
+                </tr>
                 <?php
                     ///Test Si Login présent dans Base de Données puis si Bon Password
                     if ($db_found)
                     {    
                       $Recherche="
-                      SELECT item.Nom AS Nom
+                      SELECT item.Nom AS Nom, meilleuroffre.Compteur AS Compteur, meilleuroffre.SurEnchere AS SurEnchere
                       FROM item 
                       INNER JOIN meilleuroffre
                       ON item.IDItem=meilleuroffre.IDItemM
@@ -296,27 +312,24 @@
                       //Affichage des enchère pour notre utilisateur
                       while ($data = mysqli_fetch_array($resultatRecherche)) 
                       {
+                        $compteur = 5-$data['Compteur'];
                         echo '
-                        <option>'.$data['Nom'].'</option>
-                        ';
+                        <tr>
+                          <td>'.$data['Nom'].'</td>
+                          <td align="center">'.$data['SurEnchere'].'</td>
+                          <td align="center">'.$compteur.'</td>
+                        </tr>'
+                        ;
   
                       }
                   }
                 ?>
-              </select>
+              </table>
+              <br><br>
+              <p>
+                Veuillez allez sur l'onglet Catégorie afin de sélectionner l'Objet sur lequel vous voulez essayer une nouvelle Offre.
+              </p> 
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Contre Offre de la part du Vendeur : </label>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Nombre d'Essai restants : </label>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Veuillez Saisir votre nouvelle Enchère: " name="nom">
-            </div>
-            <input type="submit" class="btn btn-secondary btn-block but1" value="Saisir ma nouvelle Offre" name="buttonAddOffre">
-          </form>
-          <p class="text center">Si vous voulez accepter la Contre-Offre du vendeur veuillez simplement faire une Contre-Offre de la même valeur. Cependant cela doit être dans le temps imparti</p>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 form ">
           <h3 class="feature-title">Récapitulatif de votre Compte !</h3>
@@ -354,7 +367,7 @@
               }
             }
           ?>
-          <input type="submit" class="btn btn-secondary btn-block" value="Modifer" name="">
+          <br><br>
         </div>
       </div>
     </div>

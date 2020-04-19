@@ -281,7 +281,8 @@
                               FROM enchere 
                               INNER JOIN item 
                               ON enchere.IDItemE = item.IDItem 
-                              WHERE item.IDOwner = '$username'";
+                              WHERE item.IDOwner = '$username'
+                              ";
                               $resultatRecherche = mysqli_query($db_handle, $Recherche);
                               //Affichage des enchère pour notre utilisateur
                               while ($data = mysqli_fetch_array($resultatRecherche)) 
@@ -301,45 +302,59 @@
                   </div>
                   <div class="col-lg-3 col-md-3 col-sm-12 form">
                     <h3 class="feature-title">Meilleur Offre en cours</h3>
-                    <form action="#" method="post">
+                    
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Veuillez Sélectionner une Meilleur Offre</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Aucune</option>
+                        <table class="table-bordered">
+                          <tr>
+                            <th>ID de l'Objet</th>
+                            <th>Nom de l'Objet</th>
+                            <th >Nom de l'Acheteur</th>
+                            <th >Prix proposé par l'acheteur</th>
+                          </tr>
                           <?php
                           ///Test Si Login présent dans Base de Données puis si Bon Password
                           if ($db_found)
                             {    
                               $Recherche="
-                              SELECT item.Nom AS Nom
-                              FROM item 
-                              INNER JOIN meilleuroffre
-                              ON item.IDItem=meilleuroffre.IDItemM
-                              WHERE meilleuroffre.IDAcheteurM = '$username'";
+                              SELECT meilleuroffre.IDAcheteurM AS Acheteur, meilleuroffre.SurEnchere AS Enchere, item.Nom AS Nom, meilleuroffre.IDMeilleurOffre AS ID
+                              FROM meilleuroffre 
+                              INNER JOIN item 
+                              ON meilleuroffre.IDItemM = item.IDItem 
+                              WHERE item.IDOwner = '$username'
+                              ";
                               $resultatRecherche = mysqli_query($db_handle, $Recherche);
                               //Affichage des enchère pour notre utilisateur
                               while ($data = mysqli_fetch_array($resultatRecherche)) 
                               {
                                 echo '
-                                <option>'.$data['Nom'].'</option>
-                                    ';
+                                  <tr class="table-secondary">
+                                    <td>&nbsp'.$data['ID'].'</td>
+                                    <td>&nbsp'.$data['Nom'].'</td>
+                                    <td>&nbsp'.$data['Acheteur'].'</td>
+                                    <td>&nbsp'.$data['Enchere'].'</td>
+                                  </tr>
+                                  ';
                               }
                             }
                           ?>
-                        </select>
+                        </table>
+                        <br><br>
+                        <form action="traitementMeilleurOffreVendeur.php" method="post">
+                           <label for="exampleFormControlSelect1">Saisissez l'ID de la Meilleure Offre que vous voulez consulter !</label>
+                           <input type="text" name="IDMeilleurOffre">
+                           <br>
+                              <input type="radio" name="acceptation" id="OKAY" value="1">
+                              <label for="OKAY">J'accepte</label>
+                              <input type="radio" name="acceptation" id="NON" value="0">
+                              <label for="NON">Je refuse</label>
+                           
+                           <div align="center">
+                             <input type="submit" value="Gérer cette Meilleur Offre">
+                           </div>
+                         </form>
                       </div>
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Contre Offre de la part du Vendeur : </label>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Nombre d'Essai restants : </label>
-                      </div>
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Veuillez Saisir votre nouvelle Enchère: " name="nom">
-                      </div>
-                      <input type="submit" class="btn btn-secondary btn-block but1" value="Saisir ma nouvelle Offre" name="buttonAddOffre">
-                    </form>
-                  </div>
+                </div>
             </div>
 </div>
 
